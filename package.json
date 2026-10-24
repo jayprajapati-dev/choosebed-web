@@ -1,14 +1,19 @@
 {
-	"name": "saasbold",
-	"version": "1.6.1",
+	"name": "choose-ghar",
+	"version": "1.6.2",
+	"description": "Choose Ghar & PG Saathi AI — Indian PG, Hostel, and Co-Living Management SaaS with Indic Voice Intelligence",
 	"private": true,
 	"engines": {
-		"node": ">=14.0.0"
+		"node": ">=18.0.0"
 	},
 	"scripts": {
 		"dev": "next dev",
 		"build": "prisma generate && next build",
 		"start": "next start",
+		"test": "npx tsx src/__tests__/voice_room_queries.test.ts",
+		"test:voice": "npx tsx src/__tests__/voice_room_queries.test.ts",
+		"test:all": "npx tsx src/__tests__/run_all_tests.ts",
+		"typecheck": "tsc --noEmit",
 		"stripe:listen": "stripe listen --forward-to http://localhost:3000/api/stripe/webhook",
 		"check-format": "prettier --check .",
 		"check-lint": "eslint . --ext ts --ext tsx --ext js",

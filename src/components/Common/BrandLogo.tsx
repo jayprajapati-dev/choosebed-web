@@ -46,10 +46,10 @@ export function BrandSymbol({
 				isMonochrome
 					? "bg-slate-900 text-white"
 					: isForcedDark
-						? "bg-[#0E2C22] ring-1 ring-[#2E7A5D]/60 shadow-[0_0_12px_rgba(52,211,153,0.15)]"
+						? "bg-[#0E2C22] shadow-[0_0_12px_rgba(52,211,153,0.15)] ring-1 ring-[#2E7A5D]/60"
 						: isForcedLight
 							? "bg-[#082319] ring-1 ring-[#174A37]/60"
-							: "bg-[#082319] ring-1 ring-[#174A37]/60 dark:bg-[#0E2C22] dark:ring-[#2E7A5D]/60 dark:shadow-[0_0_12px_rgba(52,211,153,0.15)]"
+							: "bg-[#082319] ring-1 ring-[#174A37]/60 dark:bg-[#0E2C22] dark:shadow-[0_0_12px_rgba(52,211,153,0.15)] dark:ring-[#2E7A5D]/60"
 			} ${className}`}
 		>
 			<svg

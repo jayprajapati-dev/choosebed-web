@@ -7,7 +7,8 @@ const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
 	title: {
-		default: "Choose Bed | Smart PG & Hostel Management Software India (choosebed.com)",
+		default:
+			"Choose Bed | Smart PG & Hostel Management Software India (choosebed.com)",
 		template: "%s | Choose Bed",
 	},
 	description:

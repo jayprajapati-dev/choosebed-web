@@ -32,7 +32,7 @@ const PreLoader = () => {
 
 	return (
 		<div
-			className={`fixed inset-0 z-[999999] flex flex-col items-center justify-center bg-[#FBF9F5] transition-opacity duration-400 ease-out dark:bg-[#0E1713] ${
+			className={`duration-400 fixed inset-0 z-[999999] flex flex-col items-center justify-center bg-[#FBF9F5] transition-opacity ease-out dark:bg-[#0E1713] ${
 				isFading ? "pointer-events-none opacity-0" : "opacity-100"
 			}`}
 		>
@@ -82,7 +82,7 @@ const PreLoader = () => {
 				</svg>
 
 				{/* Brand Symbol Squircle Emblem */}
-				<div className='absolute flex h-13 w-13 items-center justify-center rounded-xl bg-[#082319] shadow-md ring-1 ring-[#174A37] dark:bg-[#0E2C22] dark:ring-[#2E7A5D]/70 dark:shadow-[0_0_15px_rgba(52,211,153,0.2)]'>
+				<div className='absolute flex h-13 w-13 items-center justify-center rounded-xl bg-[#082319] shadow-md ring-1 ring-[#174A37] dark:bg-[#0E2C22] dark:shadow-[0_0_15px_rgba(52,211,153,0.2)] dark:ring-[#2E7A5D]/70'>
 					<svg
 						className='h-7 w-7'
 						viewBox='0 0 32 32'

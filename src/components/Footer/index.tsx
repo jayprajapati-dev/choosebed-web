@@ -16,8 +16,8 @@ const Footer = () => {
 						</div>
 						<p className='mt-4 max-w-sm text-sm leading-relaxed text-slate-400'>
 							Choose Bed (choosebed.com) is India&apos;s dedicated PG and hostel
-							management platform. Seamlessly organize properties, allocate rooms
-							and beds, maintain verified resident records, and maximize
+							management platform. Seamlessly organize properties, allocate
+							rooms and beds, maintain verified resident records, and maximize
 							occupancy across single and multi-branch locations.
 						</p>
 						<div className='mt-6 flex items-center gap-2 text-xs text-slate-400'>

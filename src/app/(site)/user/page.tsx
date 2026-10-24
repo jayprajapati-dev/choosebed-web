@@ -206,9 +206,9 @@ export default async function OwnerDashboardPage() {
 						variant='primary'
 						size='sm'
 						disabled
-						title='Additional property additions will be operational in Phase E'
+						title='Multi-property management coming soon'
 					>
-						+ Add Another PG/Hostel (Phase E)
+						+ Add Another Property
 					</Button>
 				</div>
 			</div>

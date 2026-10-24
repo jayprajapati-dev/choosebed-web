@@ -5,6 +5,8 @@ import { sidebarData } from "@/staticData/sidebarData";
 import { usePathname } from "next/navigation";
 import { useState } from "react";
 
+import PGSaathiAssistant from "@/components/User/Voice/PGSaathiAssistant";
+
 const UserLayout = ({ children }: { children: React.ReactNode }) => {
 	const [openSidebar, setOpenSidebar] = useState(false);
 	const pathname = usePathname();
@@ -34,6 +36,8 @@ const UserLayout = ({ children }: { children: React.ReactNode }) => {
 					<Header openSidebar={openSidebar} setOpenSidebar={setOpenSidebar} />
 					<div className='p-4 sm:p-6 lg:p-8'>{children}</div>
 				</section>
+				{/* PG Saathi Voice Assistant Trigger & Drawer */}
+				<PGSaathiAssistant />
 			</main>
 		</>
 	);
