@@ -1,7 +1,10 @@
 import { getAuthSession } from "@/libs/auth";
 import { prisma } from "@/libs/prismaDb";
 import { transcribeAudioWithGnani } from "@/libs/voice/gnaniClient";
-import { transcribeAudioWithGroqWhisper } from "@/libs/voice/groqClient";
+import {
+	isWhisperSilenceHallucination,
+	transcribeAudioWithGroqWhisper,
+} from "@/libs/voice/groqClient";
 import { NextResponse } from "next/server";
 
 export const dynamic = "force-dynamic";
@@ -124,6 +127,14 @@ export async function POST(request: Request) {
 			);
 		};
 
+		// Helper to detect Whisper subtitle hallucinations (e.g. "The End", "Thank you for watching")
+		const isValidTranscript = (text: string) => {
+			if (!text || text.trim().length === 0) return false;
+			if (isWhisperSilenceHallucination(text)) return false;
+			if (isRepetitiveHallucination(text)) return false;
+			return true;
+		};
+
 		// 5. Primary Engine: Groq Whisper (whisper-large-v3-turbo)
 		// Built-in Language Identification (LID) auto-detects English, Hindi, Gujarati, Hinglish with zero hallucination!
 		if (process.env.GROQ_API_KEY) {
@@ -135,7 +146,7 @@ export async function POST(request: Request) {
 				);
 				if (
 					whisperResult?.transcript &&
-					!isRepetitiveHallucination(whisperResult.transcript)
+					isValidTranscript(whisperResult.transcript)
 				) {
 					transcript = whisperResult.transcript;
 					detectedLanguage = whisperResult.language || languageCode;
@@ -156,10 +167,7 @@ export async function POST(request: Request) {
 					languageCode: gnaniLang,
 					preferredLanguage: gnaniLang,
 				});
-				if (
-					sttResult.transcript &&
-					!isRepetitiveHallucination(sttResult.transcript)
-				) {
+				if (sttResult.transcript && isValidTranscript(sttResult.transcript)) {
 					transcript = sttResult.transcript;
 					detectedLanguage = sttResult.language || languageCode;
 				}

@@ -215,6 +215,51 @@ export interface GroqWhisperResult {
 }
 
 /**
+ * Known Whisper silence/noise hallucinations (from subtitle pretraining datasets).
+ */
+export function isWhisperSilenceHallucination(text: string): boolean {
+	if (!text) return true;
+	const clean = text
+		.trim()
+		.toLowerCase()
+		.replace(/[.,!?:;'"_—-]/g, "")
+		.replace(/\s+/g, " ")
+		.trim();
+
+	const knownPatterns = [
+		"the end",
+		"end",
+		"thank you",
+		"thank you so much",
+		"thank you for watching",
+		"thanks for watching",
+		"thank you for listening",
+		"subtitles by",
+		"subtitles by the amaraorg community",
+		"please subscribe",
+		"like and subscribe",
+		"subscribe to my channel",
+		"you",
+		"bye",
+		"goodbye",
+		"see you next time",
+		"amaraorg",
+		"mbc",
+		"silence",
+		"music",
+		"applause",
+	];
+
+	if (knownPatterns.includes(clean)) return true;
+
+	// Repetitive single word 3+ times (e.g. "झाळ झाळ झाळ", "झाल झाल झाल")
+	const words = clean.split(" ");
+	if (words.length >= 3 && words.every((w) => w === words[0])) return true;
+
+	return false;
+}
+
+/**
  * Transcribes audio buffer using Groq Whisper (whisper-large-v3-turbo).
  * Extremely fast (~150ms) and accepts WebM, WAV, MP3, M4A, OGG natively.
  */
@@ -244,7 +289,7 @@ export async function transcribeAudioWithGroqWhisper(
 	formData.append("temperature", "0.0");
 	formData.append(
 		"prompt",
-		"ChooseBed PG and Hostel operations: available rooms, beds, vacancies, AC, Non-AC, sharing, monthly rent, tenant dues, resident admission, kaunse, kitne, khali, baki."
+		"ChooseBed PG operations: available rooms, empty beds, AC, Non-AC, double sharing, monthly rent, tenant dues, resident admission, kaunse room khali hain, which bed is available, ketla bed khali che, kiska payment baki hai."
 	);
 
 	// Only specify fixed language if explicitly requested (not "auto")
@@ -280,7 +325,7 @@ export async function transcribeAudioWithGroqWhisper(
 		}
 
 		const data = await response.json();
-		const transcript = (data.text || "").trim();
+		const rawTranscript = (data.text || "").trim();
 
 		// Normalize detected language from Whisper verbose_json
 		let detectedLang = "hi";
@@ -290,9 +335,18 @@ export async function transcribeAudioWithGroqWhisper(
 			detectedLang = "gu";
 		else if (rawLang.includes("hindi") || rawLang === "hi") detectedLang = "hi";
 
+		// Reject Whisper silence hallucinations (e.g. "The End", "Thank you for watching")
+		if (isWhisperSilenceHallucination(rawTranscript)) {
+			return {
+				success: false,
+				transcript: "",
+				language: detectedLang,
+			};
+		}
+
 		return {
-			success: Boolean(transcript),
-			transcript,
+			success: Boolean(rawTranscript),
+			transcript: rawTranscript,
 			language: detectedLang,
 		};
 	} catch (err: any) {

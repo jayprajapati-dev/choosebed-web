@@ -234,8 +234,8 @@ export default function PGSaathiAssistant() {
 					const normalized = Math.min(100, Math.round((average / 128) * 100));
 					setAudioLevel(normalized);
 
-					// Voice detection threshold & silence timeout
-					const SPEECH_THRESHOLD = 12;
+					// Voice detection threshold & silence timeout (adjusted to prevent laptop fan/ambient noise false triggers)
+					const SPEECH_THRESHOLD = 16;
 					const SILENCE_TIMEOUT_MS = 1400; // 1.4s pause after speech auto-completes utterance
 					const INITIAL_NO_SPEECH_TIMEOUT_MS = 4000; // 4s idle background noise with no speech auto-cancels
 
@@ -553,9 +553,31 @@ export default function PGSaathiAssistant() {
 			}
 
 			const transcript = transcribeData.transcript?.trim();
-			if (!transcript) {
+			const isSilenceArtifact = (text: string) => {
+				const clean = text
+					.toLowerCase()
+					.replace(/[.,!?:;'"_—-]/g, "")
+					.replace(/\s+/g, " ")
+					.trim();
+				return [
+					"the end",
+					"end",
+					"thank you",
+					"thank you for watching",
+					"thanks for watching",
+					"thank you so much",
+					"subtitles by",
+					"please subscribe",
+					"like and subscribe",
+					"you",
+					"bye",
+					"goodbye",
+				].includes(clean);
+			};
+
+			if (!transcript || isSilenceArtifact(transcript)) {
 				setErrorMessage(
-					"Kuch sunai nahi diya. Kripya microphone ke kareeb aakar bolein."
+					"Kuchh saaf sunai nahi diya. Kripya microphone ke paas aakar saaf aawaz mein sawal bolein."
 				);
 				setProcessingState("idle");
 				return;
@@ -840,7 +862,7 @@ export default function PGSaathiAssistant() {
 	return (
 		<>
 			{/* Floating Trigger Button */}
-			<div className='fixed bottom-6 right-6 z-50'>
+			<div className='fixed bottom-6 right-6 z-[999]'>
 				<button
 					onClick={() => setIsOpen((prev) => !prev)}
 					aria-label='Open PG Saathi Voice Assistant'
@@ -874,14 +896,14 @@ export default function PGSaathiAssistant() {
 					</div>
 
 					<span className='relative ml-1 rounded-full bg-emerald-700/60 px-2 py-0.5 text-[10px] font-semibold text-emerald-100'>
-						Rooms & Beds
+						Rooms &amp; Beds
 					</span>
 				</button>
 			</div>
 
 			{/* Assistant Drawer Panel */}
 			{isOpen && (
-				<div className='animate-fade-in fixed inset-0 z-50 flex justify-end bg-black/40 backdrop-blur-sm'>
+				<div className='animate-fade-in fixed inset-0 z-[9999] flex justify-end bg-black/40 backdrop-blur-sm'>
 					{/* Backdrop click to close */}
 					<div
 						className='flex-1'
