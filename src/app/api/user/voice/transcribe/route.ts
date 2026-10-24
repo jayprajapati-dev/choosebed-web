@@ -118,7 +118,10 @@ export async function POST(request: Request) {
 		// Helper to detect repetitive hallucinations (e.g. "झाल झाल झाल", "word word word")
 		const isRepetitiveHallucination = (text: string) => {
 			const words = text.trim().split(/\s+/);
-			return words.length >= 3 && words.every((w) => w.toLowerCase() === words[0].toLowerCase());
+			return (
+				words.length >= 3 &&
+				words.every((w) => w.toLowerCase() === words[0].toLowerCase())
+			);
 		};
 
 		// 5. Primary Engine: Groq Whisper (whisper-large-v3-turbo)

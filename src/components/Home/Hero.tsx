@@ -32,11 +32,11 @@ const Hero = () => {
 
 						<a
 							href='#voice-hero-widget'
-							className='group inline-flex items-center gap-2 rounded-full border border-emerald-400/80 bg-emerald-50 px-3.5 py-1.5 text-xs font-bold text-emerald-900 shadow-2xs transition-all hover:bg-emerald-100 hover:shadow-sm dark:border-emerald-800 dark:bg-emerald-950/80 dark:text-emerald-300'
+							className='shadow-2xs group inline-flex items-center gap-2 rounded-full border border-emerald-400/80 bg-emerald-50 px-3.5 py-1.5 text-xs font-bold text-emerald-900 transition-all hover:bg-emerald-100 hover:shadow-sm dark:border-emerald-800 dark:bg-emerald-950/80 dark:text-emerald-300'
 						>
-							<span className='flex h-2 w-2 rounded-full bg-emerald-500 animate-pulse' />
+							<span className='flex h-2 w-2 animate-pulse rounded-full bg-emerald-500' />
 							<span>🎙️ PG Saathi AI: Indic Voice Copilot</span>
-							<span className='rounded bg-emerald-700/10 px-1 py-0.2 text-[9px] font-extrabold uppercase text-emerald-800 dark:bg-emerald-400/20 dark:text-emerald-200'>
+							<span className='py-0.2 rounded bg-emerald-700/10 px-1 text-[9px] font-extrabold uppercase text-emerald-800 dark:bg-emerald-400/20 dark:text-emerald-200'>
 								Interactive
 							</span>
 							<span className='text-[10px] text-emerald-600 transition-transform group-hover:translate-x-0.5 dark:text-emerald-400'>
@@ -56,9 +56,12 @@ const Hero = () => {
 					{/* High-Intent SEO & Human Subtitle */}
 					<p className='mt-5 text-base leading-relaxed text-[#4A5550] dark:text-slate-300 sm:text-lg'>
 						Manage rooms, tenant records, and empty beds in real time, or simply
-						ask in <strong>Hindi, English &amp; Gujarati</strong> using hands-free{" "}
-						<strong className='text-emerald-700 dark:text-emerald-400'>PG Saathi AI</strong>.
-						Built specifically for Indian PG, hostel, and co-living owners.
+						ask in <strong>Hindi, English &amp; Gujarati</strong> using
+						hands-free{" "}
+						<strong className='text-emerald-700 dark:text-emerald-400'>
+							PG Saathi AI
+						</strong>
+						. Built specifically for Indian PG, hostel, and co-living owners.
 					</p>
 
 					{/* CTAs */}

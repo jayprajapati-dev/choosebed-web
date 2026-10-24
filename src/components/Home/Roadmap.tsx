@@ -41,7 +41,8 @@ export function Roadmap() {
 								Daily Operations &amp; PG Saathi AI
 							</h3>
 							<p className='mt-2 text-xs text-[#4A5550] dark:text-slate-400'>
-								Complete suite to manage rooms, residents, dues ledger, and hands-free voice operations.
+								Complete suite to manage rooms, residents, dues ledger, and
+								hands-free voice operations.
 							</p>
 
 							<ul className='mt-5 space-y-2.5 text-xs text-slate-700 dark:text-slate-300'>
@@ -61,7 +62,9 @@ export function Roadmap() {
 									<span className='font-bold text-emerald-600 dark:text-emerald-400'>
 										✓
 									</span>
-									<span>Resident profiles, mobile KYC &amp; room allotment</span>
+									<span>
+										Resident profiles, mobile KYC &amp; room allotment
+									</span>
 								</li>
 								<li className='flex items-start gap-2'>
 									<span className='font-bold text-emerald-600 dark:text-emerald-400'>
@@ -73,7 +76,10 @@ export function Roadmap() {
 									<span className='font-bold text-emerald-600 dark:text-emerald-400'>
 										✓
 									</span>
-									<span><strong>PG Saathi AI:</strong> Real-time Indic voice assistant</span>
+									<span>
+										<strong>PG Saathi AI:</strong> Real-time Indic voice
+										assistant
+									</span>
 								</li>
 							</ul>
 						</div>
@@ -101,7 +107,8 @@ export function Roadmap() {
 								Nearby PG Discovery &amp; Inquiries
 							</h3>
 							<p className='mt-2 text-xs text-[#4A5550] dark:text-slate-400'>
-								Helping students and working professionals find your PG directly in their area.
+								Helping students and working professionals find your PG directly
+								in their area.
 							</p>
 
 							<ul className='mt-5 space-y-2.5 text-xs text-slate-700 dark:text-slate-300'>
@@ -109,7 +116,9 @@ export function Roadmap() {
 									<span className='font-bold text-amber-600 dark:text-amber-400'>
 										•
 									</span>
-									<span>Discover verified PGs near colleges &amp; IT parks</span>
+									<span>
+										Discover verified PGs near colleges &amp; IT parks
+									</span>
 								</li>
 								<li className='flex items-start gap-2'>
 									<span className='font-bold text-amber-600 dark:text-amber-400'>
@@ -157,7 +166,8 @@ export function Roadmap() {
 								Biometrics &amp; Smart Gate Automation
 							</h3>
 							<p className='mt-2 text-xs text-[#4A5550] dark:text-slate-400'>
-								Automated entry tracking, digital parent notifications, and biometric integration.
+								Automated entry tracking, digital parent notifications, and
+								biometric integration.
 							</p>
 
 							<ul className='mt-5 space-y-2.5 text-xs text-slate-700 dark:text-slate-300'>

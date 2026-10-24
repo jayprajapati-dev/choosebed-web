@@ -1,7 +1,6 @@
 "use client";
 
 import React, { useState, useEffect } from "react";
-import Link from "next/link";
 
 interface QueryDemo {
 	id: string;
@@ -82,8 +81,9 @@ const DEMO_QUERIES: QueryDemo[] = [
 ];
 
 export function HeroVoiceWidget() {
-	const [selectedQuery, setSelectedQuery] = useState<QueryDemo>(DEMO_QUERIES[0]);
-	const [isPlaying, setIsPlaying] = useState(false);
+	const [selectedQuery, setSelectedQuery] = useState<QueryDemo>(
+		DEMO_QUERIES[0]
+	);
 	const [isSpeakingTTS, setIsSpeakingTTS] = useState(false);
 
 	// Handle speech synthesis for real interactive voice demo
@@ -115,7 +115,6 @@ export function HeroVoiceWidget() {
 
 	const handleSelectQuery = (demo: QueryDemo) => {
 		setSelectedQuery(demo);
-		setIsPlaying(true);
 		if (typeof window !== "undefined" && "speechSynthesis" in window) {
 			window.speechSynthesis.cancel();
 			setIsSpeakingTTS(false);
@@ -142,7 +141,7 @@ export function HeroVoiceWidget() {
 				<div className='flex items-center gap-3'>
 					<div className='relative flex h-11 w-11 shrink-0 items-center justify-center rounded-xl bg-gradient-to-br from-emerald-600 to-[#0B2B20] text-white shadow-md shadow-emerald-950/20'>
 						<span className='text-lg'>🎙️</span>
-						<span className='absolute -top-1 -right-1 flex h-3 w-3'>
+						<span className='absolute -right-1 -top-1 flex h-3 w-3'>
 							<span className='absolute inline-flex h-full w-full animate-ping rounded-full bg-emerald-400 opacity-75' />
 							<span className='relative inline-flex h-3 w-3 rounded-full bg-emerald-500 ring-2 ring-white dark:ring-slate-900' />
 						</span>
@@ -199,12 +198,12 @@ export function HeroVoiceWidget() {
 									>
 										{demo.langBadge}
 									</span>
-									<span className='text-xs opacity-70 group-hover:scale-110 transition-transform'>
+									<span className='text-xs opacity-70 transition-transform group-hover:scale-110'>
 										🗣️
 									</span>
 								</div>
 								<p
-									className={`mt-2 font-medium text-xs leading-snug line-clamp-2 ${
+									className={`mt-2 line-clamp-2 text-xs font-medium leading-snug ${
 										isSelected
 											? "font-bold text-[#0B2B20] dark:text-white"
 											: "text-slate-700 dark:text-slate-300"
@@ -237,16 +236,16 @@ export function HeroVoiceWidget() {
 					</div>
 
 					{/* Active Voice Wave Animation */}
-					<div className='flex items-center gap-1.5 rounded-full bg-white px-3 py-1.5 shadow-2xs dark:bg-slate-900'>
+					<div className='shadow-2xs flex items-center gap-1.5 rounded-full bg-white px-3 py-1.5 dark:bg-slate-900'>
 						<span className='text-[10px] font-semibold text-slate-500 dark:text-slate-400'>
 							VAD Audio
 						</span>
-						<div className='flex items-center gap-0.5 h-4'>
-							<span className='h-2.5 w-1 rounded-full bg-emerald-500 animate-[pulse_0.6s_ease-in-out_infinite]' />
-							<span className='h-4 w-1 rounded-full bg-emerald-600 animate-[pulse_0.4s_ease-in-out_infinite]' />
-							<span className='h-3 w-1 rounded-full bg-amber-500 animate-[pulse_0.7s_ease-in-out_infinite]' />
-							<span className='h-5 w-1 rounded-full bg-emerald-500 animate-[pulse_0.5s_ease-in-out_infinite]' />
-							<span className='h-2 w-1 rounded-full bg-emerald-600 animate-[pulse_0.8s_ease-in-out_infinite]' />
+						<div className='flex h-4 items-center gap-0.5'>
+							<span className='h-2.5 w-1 animate-[pulse_0.6s_ease-in-out_infinite] rounded-full bg-emerald-500' />
+							<span className='h-4 w-1 animate-[pulse_0.4s_ease-in-out_infinite] rounded-full bg-emerald-600' />
+							<span className='h-3 w-1 animate-[pulse_0.7s_ease-in-out_infinite] rounded-full bg-amber-500' />
+							<span className='h-5 w-1 animate-[pulse_0.5s_ease-in-out_infinite] rounded-full bg-emerald-500' />
+							<span className='h-2 w-1 animate-[pulse_0.8s_ease-in-out_infinite] rounded-full bg-emerald-600' />
 						</div>
 					</div>
 				</div>
@@ -268,17 +267,19 @@ export function HeroVoiceWidget() {
 							onClick={() =>
 								speakResponse(selectedQuery.response, selectedQuery.lang)
 							}
-							className={`inline-flex items-center gap-1.5 rounded-lg border px-3 py-1 text-xs font-bold shadow-2xs transition-all ${
+							className={`shadow-2xs inline-flex items-center gap-1.5 rounded-lg border px-3 py-1 text-xs font-bold transition-all ${
 								isSpeakingTTS
-									? "border-emerald-600 bg-emerald-600 text-white animate-pulse"
+									? "animate-pulse border-emerald-600 bg-emerald-600 text-white"
 									: "border-emerald-300 bg-white text-emerald-800 hover:bg-emerald-50 dark:border-emerald-800 dark:bg-slate-900 dark:text-emerald-300 dark:hover:bg-slate-800"
 							}`}
 						>
-							<span>{isSpeakingTTS ? "🔊 Speaking..." : "🔊 Listen Voice"}</span>
+							<span>
+								{isSpeakingTTS ? "🔊 Speaking..." : "🔊 Listen Voice"}
+							</span>
 						</button>
 					</div>
 
-					<p className='mt-2.5 rounded-lg bg-white p-3.5 text-xs sm:text-sm leading-relaxed text-[#2D3732] shadow-2xs dark:bg-slate-900 dark:text-slate-200'>
+					<p className='shadow-2xs mt-2.5 rounded-lg bg-white p-3.5 text-xs leading-relaxed text-[#2D3732] dark:bg-slate-900 dark:text-slate-200 sm:text-sm'>
 						{selectedQuery.response}
 					</p>
 
@@ -302,15 +303,24 @@ export function HeroVoiceWidget() {
 					<div className='mt-3.5 flex flex-wrap items-center justify-between gap-2 border-t border-[#F0EBE0] pt-2.5 text-[11px] text-slate-500 dark:border-slate-800/80 dark:text-slate-400'>
 						<div className='flex items-center gap-3'>
 							<span>
-								Latency: <strong className='text-emerald-700 dark:text-emerald-400'>{selectedQuery.metrics.latency}</strong>
+								Latency:{" "}
+								<strong className='text-emerald-700 dark:text-emerald-400'>
+									{selectedQuery.metrics.latency}
+								</strong>
 							</span>
 							<span>•</span>
 							<span>
-								STT: <strong className='text-slate-700 dark:text-slate-300'>{selectedQuery.metrics.detectedLang}</strong>
+								STT:{" "}
+								<strong className='text-slate-700 dark:text-slate-300'>
+									{selectedQuery.metrics.detectedLang}
+								</strong>
 							</span>
 							<span>•</span>
 							<span>
-								Cost: <strong className='text-emerald-700 dark:text-emerald-400'>{selectedQuery.metrics.tokens}</strong>
+								Cost:{" "}
+								<strong className='text-emerald-700 dark:text-emerald-400'>
+									{selectedQuery.metrics.tokens}
+								</strong>
 							</span>
 						</div>
 						<span className='text-[10px] font-semibold text-slate-400'>

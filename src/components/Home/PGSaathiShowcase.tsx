@@ -39,10 +39,14 @@ const SAMPLE_QUERIES: SampleQuery[] = [
 			title: "Room 101 & 103 Availability",
 			subtitle: "Sunrise Residency • 1st Floor",
 			badge: "4 Beds Available",
-			badgeColor: "bg-emerald-50 text-emerald-800 dark:bg-emerald-950 dark:text-emerald-300",
+			badgeColor:
+				"bg-emerald-50 text-emerald-800 dark:bg-emerald-950 dark:text-emerald-300",
 			details: [
 				{ label: "Room 101 (Triple, AC)", value: "Bed #3 Free • ₹7,500/mo" },
-				{ label: "Room 103 (Double, Non-AC)", value: "Bed #1 & #2 Free • ₹5,000/mo" },
+				{
+					label: "Room 103 (Double, Non-AC)",
+					value: "Bed #1 & #2 Free • ₹5,000/mo",
+				},
 				{ label: "Occupancy Rate", value: "78% (14 / 18 Beds Occupied)" },
 			],
 		},
@@ -63,7 +67,8 @@ const SAMPLE_QUERIES: SampleQuery[] = [
 			title: "Khali Rooms Status",
 			subtitle: "Real-Time Inventory Rollup",
 			badge: "2 Rooms Vacant",
-			badgeColor: "bg-emerald-50 text-emerald-800 dark:bg-emerald-950 dark:text-emerald-300",
+			badgeColor:
+				"bg-emerald-50 text-emerald-800 dark:bg-emerald-950 dark:text-emerald-300",
 			details: [
 				{ label: "Room 101", value: "1 / 3 Free (Triple, AC) • ₹7,500/mo" },
 				{ label: "Room 103", value: "2 / 2 Free (Double, Non-AC) • ₹5,000/mo" },
@@ -87,7 +92,8 @@ const SAMPLE_QUERIES: SampleQuery[] = [
 			title: "ખાલી રૂમની વિગત",
 			subtitle: "લાઇવ પીજી ઇન્વેન્ટરી",
 			badge: "4 બેડ ખાલી",
-			badgeColor: "bg-emerald-50 text-emerald-800 dark:bg-emerald-950 dark:text-emerald-300",
+			badgeColor:
+				"bg-emerald-50 text-emerald-800 dark:bg-emerald-950 dark:text-emerald-300",
 			details: [
 				{ label: "રૂમ ૧૦૧", value: "૧ બેડ ખાલી (એસી) • ₹૭,૫૦૦/માસ" },
 				{ label: "રૂમ ૧૦૩", value: "૨ બેડ ખાલી (નોન-એસી) • ₹૫,૦૦૦/માસ" },
@@ -111,11 +117,18 @@ const SAMPLE_QUERIES: SampleQuery[] = [
 			title: "Pending Rent Ledger Breakdown",
 			subtitle: "October 2026 Billing Period",
 			badge: "₹7,500 Total Pending",
-			badgeColor: "bg-amber-50 text-amber-800 dark:bg-amber-950 dark:text-amber-300",
+			badgeColor:
+				"bg-amber-50 text-amber-800 dark:bg-amber-950 dark:text-amber-300",
 			details: [
-				{ label: "Rahul Sharma (Room 101)", value: "₹2,500 Pending (₹5,000 Paid)" },
+				{
+					label: "Rahul Sharma (Room 101)",
+					value: "₹2,500 Pending (₹5,000 Paid)",
+				},
 				{ label: "Amit Patel (Room 102)", value: "₹5,000 Pending (₹0 Paid)" },
-				{ label: "Total Collected This Month", value: "₹62,500 (89% Collection Rate)" },
+				{
+					label: "Total Collected This Month",
+					value: "₹62,500 (89% Collection Rate)",
+				},
 			],
 		},
 	},
@@ -135,7 +148,8 @@ const SAMPLE_QUERIES: SampleQuery[] = [
 			title: "AC Room Vacancy Filter",
 			subtitle: "Strict AC Constraint Active",
 			badge: "AC Only (Room 101)",
-			badgeColor: "bg-blue-50 text-blue-800 dark:bg-blue-950 dark:text-blue-300",
+			badgeColor:
+				"bg-blue-50 text-blue-800 dark:bg-blue-950 dark:text-blue-300",
 			details: [
 				{ label: "Selected Room", value: "Room 101 (AC, 1st Floor)" },
 				{ label: "Free Bed", value: "Bed #3 (Occupancy: 2/3)" },
@@ -178,10 +192,10 @@ export default function PGSaathiShowcase() {
 					</h2>
 
 					<p className='mt-4 text-base leading-relaxed text-[#4A5550] dark:text-slate-300 sm:text-lg'>
-						Speak naturally in <strong>Hindi, English, or Gujarati</strong>. PG Saathi
-						instantly checks room vacancies, bed counts, rent rates, and tenant dues
-						directly from your live database with <strong>zero token cost</strong> on
-						standard queries.
+						Speak naturally in <strong>Hindi, English, or Gujarati</strong>. PG
+						Saathi instantly checks room vacancies, bed counts, rent rates, and
+						tenant dues directly from your live database with{" "}
+						<strong>zero token cost</strong> on standard queries.
 					</p>
 				</div>
 
@@ -216,12 +230,12 @@ export default function PGSaathiShowcase() {
 								<div className='flex size-10 shrink-0 items-center justify-center rounded-xl bg-emerald-100 text-base font-bold text-emerald-900 dark:bg-emerald-950 dark:text-emerald-300'>
 									👤
 								</div>
-								<div className='flex-1 rounded-2xl rounded-tl-sm border border-emerald-100 bg-emerald-50/60 p-4 shadow-xs dark:border-emerald-950 dark:bg-emerald-950/30'>
+								<div className='shadow-xs flex-1 rounded-2xl rounded-tl-sm border border-emerald-100 bg-emerald-50/60 p-4 dark:border-emerald-950 dark:bg-emerald-950/30'>
 									<div className='flex items-center justify-between gap-2'>
 										<span className='text-xs font-bold uppercase tracking-wider text-emerald-800 dark:text-emerald-400'>
 											Owner Spoken Voice
 										</span>
-										<span className='rounded-full bg-white px-2.5 py-0.5 text-[10px] font-semibold text-slate-600 shadow-2xs dark:bg-slate-800 dark:text-slate-300'>
+										<span className='shadow-2xs rounded-full bg-white px-2.5 py-0.5 text-[10px] font-semibold text-slate-600 dark:bg-slate-800 dark:text-slate-300'>
 											{active.detectedLang}
 										</span>
 									</div>
@@ -253,7 +267,8 @@ export default function PGSaathiShowcase() {
 									/>
 								</div>
 								<span className='text-xs font-medium text-slate-500 dark:text-slate-400'>
-									Voice Activity Detection (VAD) • 16kHz Uncompressed Audio Stream
+									Voice Activity Detection (VAD) • 16kHz Uncompressed Audio
+									Stream
 								</span>
 							</div>
 
@@ -327,7 +342,7 @@ export default function PGSaathiShowcase() {
 									{active.card.subtitle}
 								</p>
 
-								<div className='mt-5 divide-y divide-slate-100 rounded-xl border border-slate-200/80 bg-white p-3 shadow-2xs dark:divide-slate-800 dark:border-slate-800 dark:bg-slate-900'>
+								<div className='shadow-2xs mt-5 divide-y divide-slate-100 rounded-xl border border-slate-200/80 bg-white p-3 dark:divide-slate-800 dark:border-slate-800 dark:bg-slate-900'>
 									{active.card.details.map((d, i) => (
 										<div
 											key={i}
@@ -348,9 +363,7 @@ export default function PGSaathiShowcase() {
 										<span className='size-2 rounded-full bg-emerald-500' />
 										<span>PostgreSQL Grounded</span>
 									</span>
-									<span className='font-mono text-[10px]'>
-										ownerId: scoped
-									</span>
+									<span className='font-mono text-[10px]'>ownerId: scoped</span>
 								</div>
 							</div>
 						</div>
@@ -359,36 +372,39 @@ export default function PGSaathiShowcase() {
 
 				{/* 3 Core Architecture Pillars */}
 				<div className='mt-12 grid grid-cols-1 gap-6 md:grid-cols-3'>
-					<div className='rounded-2xl border border-[#E8E3D8] bg-white p-6 shadow-xs dark:border-slate-800 dark:bg-slate-900'>
+					<div className='shadow-xs rounded-2xl border border-[#E8E3D8] bg-white p-6 dark:border-slate-800 dark:bg-slate-900'>
 						<div className='text-2xl'>⚡</div>
 						<h3 className='mt-3 text-base font-bold text-[#0B2B20] dark:text-white'>
 							0ms Latency on 95%+ Queries
 						</h3>
 						<p className='mt-2 text-xs leading-relaxed text-[#4A5550] dark:text-slate-400'>
-							Standard queries for vacant rooms, empty beds, and rent rates resolve locally
-							using our deterministic Indic NLU parser without waiting for remote LLMs.
+							Standard queries for vacant rooms, empty beds, and rent rates
+							resolve locally using our deterministic Indic NLU parser without
+							waiting for remote LLMs.
 						</p>
 					</div>
 
-					<div className='rounded-2xl border border-[#E8E3D8] bg-white p-6 shadow-xs dark:border-slate-800 dark:bg-slate-900'>
+					<div className='shadow-xs rounded-2xl border border-[#E8E3D8] bg-white p-6 dark:border-slate-800 dark:bg-slate-900'>
 						<div className='text-2xl'>🔒</div>
 						<h3 className='mt-3 text-base font-bold text-[#0B2B20] dark:text-white'>
 							Strict Read-Only Safety Policy
 						</h3>
 						<p className='mt-2 text-xs leading-relaxed text-[#4A5550] dark:text-slate-400'>
-							Voice commands can never mutate database records. Financial and resident
-							actions provide guidance directing owners to authenticated dashboard screens.
+							Voice commands can never mutate database records. Financial and
+							resident actions provide guidance directing owners to
+							authenticated dashboard screens.
 						</p>
 					</div>
 
-					<div className='rounded-2xl border border-[#E8E3D8] bg-white p-6 shadow-xs dark:border-slate-800 dark:bg-slate-900'>
+					<div className='shadow-xs rounded-2xl border border-[#E8E3D8] bg-white p-6 dark:border-slate-800 dark:bg-slate-900'>
 						<div className='text-2xl'>🇮🇳</div>
 						<h3 className='mt-3 text-base font-bold text-[#0B2B20] dark:text-white'>
 							Multilingual Auto-Detection
 						</h3>
 						<p className='mt-2 text-xs leading-relaxed text-[#4A5550] dark:text-slate-400'>
-							Speak freely in English, Hindi, Devanagari, or Gujarati. Our speech engine
-							auto-detects your language without forcing awkward manual settings.
+							Speak freely in English, Hindi, Devanagari, or Gujarati. Our
+							speech engine auto-detects your language without forcing awkward
+							manual settings.
 						</p>
 					</div>
 				</div>
