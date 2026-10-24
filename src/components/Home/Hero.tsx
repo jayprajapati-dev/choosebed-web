@@ -3,6 +3,7 @@
 import { useSession } from "next-auth/react";
 import Link from "next/link";
 import React from "react";
+import { HeroVoiceWidget } from "./HeroVoiceWidget";
 import { OperationsPreview } from "./OperationsPreview";
 
 const Hero = () => {
@@ -30,32 +31,37 @@ const Hero = () => {
 						</div>
 
 						<a
-							href='#voice-copilot'
-							className='inline-flex items-center gap-1.5 rounded-full border border-emerald-300/80 bg-emerald-50 px-3.5 py-1.5 text-xs font-bold text-emerald-800 shadow-2xs transition-all hover:bg-emerald-100 dark:border-emerald-800 dark:bg-emerald-950/80 dark:text-emerald-300'
+							href='#voice-hero-widget'
+							className='group inline-flex items-center gap-2 rounded-full border border-emerald-400/80 bg-emerald-50 px-3.5 py-1.5 text-xs font-bold text-emerald-900 shadow-2xs transition-all hover:bg-emerald-100 hover:shadow-sm dark:border-emerald-800 dark:bg-emerald-950/80 dark:text-emerald-300'
 						>
-							<span>🎙️</span>
-							<span>PG Saathi AI Voice Copilot</span>
-							<span className='text-[10px] text-emerald-600 dark:text-emerald-400'>→</span>
+							<span className='flex h-2 w-2 rounded-full bg-emerald-500 animate-pulse' />
+							<span>🎙️ PG Saathi AI: Indic Voice Copilot</span>
+							<span className='rounded bg-emerald-700/10 px-1 py-0.2 text-[9px] font-extrabold uppercase text-emerald-800 dark:bg-emerald-400/20 dark:text-emerald-200'>
+								Interactive
+							</span>
+							<span className='text-[10px] text-emerald-600 transition-transform group-hover:translate-x-0.5 dark:text-emerald-400'>
+								→
+							</span>
 						</a>
 					</div>
 
-					{/* Main Headline (2-Line Editorial Hierarchy) */}
-					<h1 className='mt-6 font-inter text-3xl font-extrabold tracking-tight text-[#0B2B20] dark:text-white sm:text-5xl sm:leading-[1.15] lg:text-[60px] lg:leading-[1.1]'>
+					{/* Main Headline */}
+					<h1 className='mt-6 font-inter text-3xl font-extrabold tracking-tight text-[#0B2B20] dark:text-white sm:text-5xl sm:leading-[1.15] lg:text-[58px] lg:leading-[1.1]'>
 						<span className='block'>Manage Your PG</span>
 						<span className='font-serif mt-1 block font-normal italic text-[#1A533F] dark:text-[#34D399] sm:mt-2'>
-							the Easy Way.
+							the Easy Way — with Voice AI.
 						</span>
 					</h1>
 
 					{/* High-Intent SEO & Human Subtitle */}
 					<p className='mt-5 text-base leading-relaxed text-[#4A5550] dark:text-slate-300 sm:text-lg'>
-						Manage rooms, resident records, and vacant bed availability in real
-						time, all from one intuitive dashboard. Built specifically for
-						Indian PG, hostel, and co-living owners to streamline daily
-						operations and prevent revenue loss.
+						Manage rooms, tenant records, and empty beds in real time, or simply
+						ask in <strong>Hindi, English &amp; Gujarati</strong> using hands-free{" "}
+						<strong className='text-emerald-700 dark:text-emerald-400'>PG Saathi AI</strong>.
+						Built specifically for Indian PG, hostel, and co-living owners.
 					</p>
 
-					{/* Simple CTAs */}
+					{/* CTAs */}
 					<div className='mt-8 flex flex-col items-center justify-center gap-3.5 sm:flex-row'>
 						{isLoggedIn ? (
 							<Link
@@ -73,8 +79,14 @@ const Hero = () => {
 							</Link>
 						)}
 						<a
+							href='#voice-hero-widget'
+							className='w-full rounded-xl border border-emerald-600/30 bg-emerald-50 px-6 py-3.5 text-center text-sm font-bold text-emerald-900 shadow-sm transition-all hover:bg-emerald-100 hover:shadow-md dark:border-emerald-500/40 dark:bg-emerald-950/70 dark:text-emerald-300 dark:hover:bg-emerald-900/80 sm:w-auto'
+						>
+							🎙️ Try Voice AI Demo
+						</a>
+						<a
 							href='#how-it-works'
-							className='w-full rounded-xl border border-[#D5CEBF] bg-white px-7 py-3.5 text-center text-sm font-semibold text-[#0B2B20] shadow-sm transition-all hover:bg-[#FAF8F5] dark:border-slate-700 dark:bg-slate-900 dark:text-slate-200 dark:hover:bg-slate-800 sm:w-auto'
+							className='w-full rounded-xl border border-[#D5CEBF] bg-white px-6 py-3.5 text-center text-sm font-semibold text-[#0B2B20] shadow-sm transition-all hover:bg-[#FAF8F5] dark:border-slate-700 dark:bg-slate-900 dark:text-slate-200 dark:hover:bg-slate-800 sm:w-auto'
 						>
 							See How It Works
 						</a>
@@ -112,7 +124,7 @@ const Hero = () => {
 									d='M5 13l4 4L19 7'
 								/>
 							</svg>
-							AC & Non-AC Rooms
+							AC &amp; Non-AC Rooms
 						</span>
 						<span className='flex items-center gap-1.5'>
 							<svg
@@ -146,15 +158,20 @@ const Hero = () => {
 							</svg>
 							Track Empty Beds
 						</span>
-						<span className='flex items-center gap-1.5 text-emerald-800 dark:text-emerald-300'>
+						<span className='flex items-center gap-1.5 font-bold text-emerald-800 dark:text-emerald-300'>
 							<span>🎙️</span>
 							<span>Hindi, Eng &amp; Guj Voice</span>
 						</span>
 					</div>
 				</div>
 
+				{/* NEW: Dedicated Interactive Voice Copilot Hero Showcase */}
+				<div id='voice-hero-widget'>
+					<HeroVoiceWidget />
+				</div>
+
 				{/* Dashboard Preview Section with Polished Context Header */}
-				<div id='preview' className='mt-12 sm:mt-16'>
+				<div id='preview' className='mt-14 sm:mt-20'>
 					<div className='mb-4 flex flex-col items-center justify-center gap-1.5 px-1 text-center sm:flex-row sm:items-center sm:justify-between sm:text-left'>
 						<div className='shadow-xs inline-flex items-center gap-2 rounded-full border border-[#E8E3D8] bg-white px-3.5 py-1 text-xs font-semibold text-[#0B2B20] dark:border-slate-800 dark:bg-[#0B1E17] dark:text-emerald-300'>
 							<span className='relative flex h-2 w-2'>
