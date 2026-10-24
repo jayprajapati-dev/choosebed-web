@@ -21,6 +21,14 @@ const faqs = [
 		a: "Yes. ChooseBed works smoothly on mobile phones and tablets. You can check vacant beds or add a new resident directly from your phone browser while walking through your PG.",
 	},
 	{
+		q: "What is PG Saathi AI and which languages does it support?",
+		a: "PG Saathi AI is a built-in voice copilot for property owners. It supports natural spoken queries in Hindi, Indian English, Gujarati, and Hinglish. You can ask questions like 'Kaunse room khali hain?', 'Which bed is available?', or 'Kiska payment baki hai?' and get instant live answers.",
+	},
+	{
+		q: "Does PG Saathi AI cost extra or consume expensive AI credits?",
+		a: "No. Standard operational queries for vacant rooms, empty beds, room tariffs, and resident dues resolve locally in 0ms with zero LLM token cost using our deterministic Indic NLU engine.",
+	},
+	{
 		q: "Can I manage more than one PG from the same owner account?",
 		a: "Yes. Your owner account allows you to add and manage multiple properties or branches, each with its own floors, rooms, and resident records.",
 	},

@@ -30,7 +30,7 @@ export function Roadmap() {
 						<div>
 							<div className='flex items-center justify-between'>
 								<span className='rounded-full bg-emerald-100 px-3 py-1 text-xs font-bold text-emerald-800 dark:bg-emerald-950 dark:text-emerald-300'>
-									● Live for Owners (MVP)
+									● Live for Owners (Active)
 								</span>
 								<span className='font-mono text-xs font-semibold text-slate-400'>
 									Phase 01
@@ -38,11 +38,10 @@ export function Roadmap() {
 							</div>
 
 							<h3 className='mt-5 text-lg font-bold text-[#0B2B20] dark:text-white'>
-								Daily PG & Room Management
+								Daily Operations &amp; PG Saathi AI
 							</h3>
 							<p className='mt-2 text-xs text-[#4A5550] dark:text-slate-400'>
-								Core tools to organize rooms, residents, and empty beds in one
-								simple screen.
+								Complete suite to manage rooms, residents, dues ledger, and hands-free voice operations.
 							</p>
 
 							<ul className='mt-5 space-y-2.5 text-xs text-slate-700 dark:text-slate-300'>
@@ -50,31 +49,31 @@ export function Roadmap() {
 									<span className='font-bold text-emerald-600 dark:text-emerald-400'>
 										✓
 									</span>
-									<span>Building & floor structure setup</span>
+									<span>Multi-Property &amp; Floor Bed Matrix</span>
 								</li>
 								<li className='flex items-start gap-2'>
 									<span className='font-bold text-emerald-600 dark:text-emerald-400'>
 										✓
 									</span>
-									<span>AC & Non-AC room types</span>
+									<span>AC &amp; Non-AC single, double, triple sharing</span>
 								</li>
 								<li className='flex items-start gap-2'>
 									<span className='font-bold text-emerald-600 dark:text-emerald-400'>
 										✓
 									</span>
-									<span>Single, Double & Triple sharing beds</span>
+									<span>Resident profiles, mobile KYC &amp; room allotment</span>
 								</li>
 								<li className='flex items-start gap-2'>
 									<span className='font-bold text-emerald-600 dark:text-emerald-400'>
 										✓
 									</span>
-									<span>Resident phone numbers & room records</span>
+									<span>Monthly rent dues, ledger &amp; digital receipts</span>
 								</li>
 								<li className='flex items-start gap-2'>
 									<span className='font-bold text-emerald-600 dark:text-emerald-400'>
 										✓
 									</span>
-									<span>Live empty bed tracking</span>
+									<span><strong>PG Saathi AI:</strong> Real-time Indic voice assistant</span>
 								</li>
 							</ul>
 						</div>
@@ -99,11 +98,10 @@ export function Roadmap() {
 							</div>
 
 							<h3 className='mt-5 text-lg font-bold text-[#0B2B20] dark:text-white'>
-								Nearby PG Discovery
+								Nearby PG Discovery &amp; Inquiries
 							</h3>
 							<p className='mt-2 text-xs text-[#4A5550] dark:text-slate-400'>
-								Helping students and tenants find your PG when searching in your
-								area.
+								Helping students and working professionals find your PG directly in their area.
 							</p>
 
 							<ul className='mt-5 space-y-2.5 text-xs text-slate-700 dark:text-slate-300'>
@@ -111,44 +109,44 @@ export function Roadmap() {
 									<span className='font-bold text-amber-600 dark:text-amber-400'>
 										•
 									</span>
-									<span>Discover PGs near colleges & tech parks</span>
+									<span>Discover verified PGs near colleges &amp; IT parks</span>
 								</li>
 								<li className='flex items-start gap-2'>
 									<span className='font-bold text-amber-600 dark:text-amber-400'>
 										•
 									</span>
-									<span>Owner decides whether to list property</span>
+									<span>Owner toggle to enable/disable public listing</span>
 								</li>
 								<li className='flex items-start gap-2'>
 									<span className='font-bold text-amber-600 dark:text-amber-400'>
 										•
 									</span>
 									<span>
-										Direct calls to owner with zero middleman commission
+										Direct WhatsApp &amp; call connect — zero commission
 									</span>
 								</li>
 								<li className='flex items-start gap-2'>
 									<span className='font-bold text-amber-600 dark:text-amber-400'>
 										•
 									</span>
-									<span>No student login or forced bookings</span>
+									<span>Instant walk-in inquiry tracking pipeline</span>
 								</li>
 							</ul>
 						</div>
 
 						<div className='mt-6 border-t border-[#F0EBE0] pt-4 dark:border-slate-800'>
 							<span className='text-xs font-semibold text-amber-700 dark:text-amber-400'>
-								In planning stage
+								In development
 							</span>
 						</div>
 					</div>
 
-					{/* Card 3: Finance & Utilities (Future Suite) */}
+					{/* Card 3: Enterprise & Automation */}
 					<div className='flex flex-col justify-between rounded-2xl border border-[#E8E3D8] bg-white p-7 shadow-sm transition-all hover:border-[#D5CEBF] dark:border-slate-800 dark:bg-slate-900'>
 						<div>
 							<div className='flex items-center justify-between'>
 								<span className='rounded-full bg-slate-100 px-3 py-1 text-xs font-bold text-slate-700 dark:bg-slate-800 dark:text-slate-300'>
-									Future Update
+									Future Suite
 								</span>
 								<span className='font-mono text-xs font-semibold text-slate-400'>
 									Phase 03
@@ -156,36 +154,35 @@ export function Roadmap() {
 							</div>
 
 							<h3 className='mt-5 text-lg font-bold text-[#0B2B20] dark:text-white'>
-								Rent Records & Monthly Bills
+								Biometrics &amp; Smart Gate Automation
 							</h3>
 							<p className='mt-2 text-xs text-[#4A5550] dark:text-slate-400'>
-								Simple tools to track monthly rent, deposits, and electricity
-								charges.
+								Automated entry tracking, digital parent notifications, and biometric integration.
 							</p>
 
 							<ul className='mt-5 space-y-2.5 text-xs text-slate-700 dark:text-slate-300'>
 								<li className='flex items-start gap-2'>
 									<span className='font-bold text-slate-500'>•</span>
-									<span>Mark monthly rent as paid or pending (₹)</span>
+									<span>Fingerprint &amp; face-recognition entry sync</span>
 								</li>
 								<li className='flex items-start gap-2'>
 									<span className='font-bold text-slate-500'>•</span>
-									<span>Security deposit & refund records</span>
+									<span>Automated late entry SMS alerts to wardens</span>
 								</li>
 								<li className='flex items-start gap-2'>
 									<span className='font-bold text-slate-500'>•</span>
-									<span>Electricity meter reading notes</span>
+									<span>Digital visitor passes with QR verification</span>
 								</li>
 								<li className='flex items-start gap-2'>
 									<span className='font-bold text-slate-500'>•</span>
-									<span>Move-out clearance records</span>
+									<span>Automated electricity sub-meter calculations</span>
 								</li>
 							</ul>
 						</div>
 
 						<div className='mt-6 border-t border-[#F0EBE0] pt-4 dark:border-slate-800'>
 							<span className='text-xs font-semibold text-slate-500 dark:text-slate-400'>
-								Planned for future update
+								Planned for upcoming release
 							</span>
 						</div>
 					</div>

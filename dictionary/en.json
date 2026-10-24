@@ -29,6 +29,7 @@
 	},
 	"header": {
 		"features": "Features",
+		"voice_copilot": "Voice AI 🎙️",
 		"how_it_works": "How It Works",
 		"faq": "FAQ",
 		"pricing": "Pricing",

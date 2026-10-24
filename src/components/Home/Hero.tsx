@@ -17,15 +17,26 @@ const Hero = () => {
 
 			<div className='relative mx-auto max-w-[1170px] px-4 sm:px-8 xl:px-0'>
 				<div className='mx-auto max-w-3xl text-center'>
-					{/* Target Audience Pill */}
-					<div className='inline-flex items-center gap-2 rounded-full border border-[#E8E3D8] bg-white px-4 py-1.5 text-xs font-semibold text-[#0B2B20] shadow-sm transition-all hover:border-[#D5CEBF] dark:border-slate-800 dark:bg-slate-900 dark:text-emerald-300'>
-						<span className='relative flex h-2 w-2'>
-							<span className='absolute inline-flex h-full w-full animate-ping rounded-full bg-emerald-400 opacity-75' />
-							<span className='relative inline-flex h-2 w-2 rounded-full bg-[#E5A83B]' />
-						</span>
-						<span className='text-[11px] font-bold uppercase tracking-wide text-slate-700 dark:text-slate-200'>
-							Made for PG & Hostel Owners
-						</span>
+					{/* Target Audience & Voice AI Pill */}
+					<div className='flex flex-wrap items-center justify-center gap-2.5'>
+						<div className='inline-flex items-center gap-2 rounded-full border border-[#E8E3D8] bg-white px-4 py-1.5 text-xs font-semibold text-[#0B2B20] shadow-sm transition-all hover:border-[#D5CEBF] dark:border-slate-800 dark:bg-slate-900 dark:text-emerald-300'>
+							<span className='relative flex h-2 w-2'>
+								<span className='absolute inline-flex h-full w-full animate-ping rounded-full bg-emerald-400 opacity-75' />
+								<span className='relative inline-flex h-2 w-2 rounded-full bg-[#E5A83B]' />
+							</span>
+							<span className='text-[11px] font-bold uppercase tracking-wide text-slate-700 dark:text-slate-200'>
+								Made for PG &amp; Hostel Owners
+							</span>
+						</div>
+
+						<a
+							href='#voice-copilot'
+							className='inline-flex items-center gap-1.5 rounded-full border border-emerald-300/80 bg-emerald-50 px-3.5 py-1.5 text-xs font-bold text-emerald-800 shadow-2xs transition-all hover:bg-emerald-100 dark:border-emerald-800 dark:bg-emerald-950/80 dark:text-emerald-300'
+						>
+							<span>🎙️</span>
+							<span>PG Saathi AI Voice Copilot</span>
+							<span className='text-[10px] text-emerald-600 dark:text-emerald-400'>→</span>
+						</a>
 					</div>
 
 					{/* Main Headline (2-Line Editorial Hierarchy) */}
@@ -134,6 +145,10 @@ const Hero = () => {
 								/>
 							</svg>
 							Track Empty Beds
+						</span>
+						<span className='flex items-center gap-1.5 text-emerald-800 dark:text-emerald-300'>
+							<span>🎙️</span>
+							<span>Hindi, Eng &amp; Guj Voice</span>
 						</span>
 					</div>
 				</div>

@@ -3,11 +3,11 @@ import React from "react";
 const mvpPillars = [
 	{
 		number: "01",
-		badge: "Set Up Your PG",
-		title: "Manage Your PG & Floors",
+		badge: "Multi-Property Setup",
+		title: "Manage Multiple PGs & Floors",
 		description:
-			"Add your PG name, set up floors, and keep all your rooms organized. Manage one PG or multiple branches easily from one account.",
-		tag: "Easy building & floor setup",
+			"Add your PG branches, configure floors, and track capacities. Easily switch between multiple properties from one single master owner dashboard.",
+		tag: "Multi-branch & floor governance",
 		icon: (
 			<svg
 				className='h-6 w-6 text-[#0B2B20] dark:text-[#E5A83B]'
@@ -26,11 +26,11 @@ const mvpPillars = [
 	},
 	{
 		number: "02",
-		badge: "Room Types",
-		title: "AC, Non-AC & Room Sharing",
+		badge: "Room Types & Beds",
+		title: "AC, Non-AC & Sharing Tiers",
 		description:
-			"Mark rooms as AC or Non-AC. Set single, double, or triple sharing, and set total beds for every room without confusion.",
-		tag: "AC & Non-AC • Flexible sharing",
+			"Mark rooms as AC or Non-AC. Set single, double, triple, or 4-sharing configurations with atomic bed generation and individual monthly rent tariffs.",
+		tag: "AC & Non-AC • 1 to 4 Sharing",
 		icon: (
 			<svg
 				className='h-6 w-6 text-[#0B2B20] dark:text-[#E5A83B]'
@@ -49,11 +49,11 @@ const mvpPillars = [
 	},
 	{
 		number: "03",
-		badge: "Resident Details",
-		title: "Keep All Resident Records",
+		badge: "Resident Admissions",
+		title: "Digital Resident KYC & Bed Locks",
 		description:
-			"Save resident names, 10-digit mobile numbers, and joining dates. Look up any resident by name or room in seconds.",
-		tag: "Quick search by name or mobile",
+			"Save resident names, 10-digit mobile numbers, emergency contacts, and admission dates. Allocating a resident atomically locks the bed to prevent double-booking.",
+		tag: "Atomic bed locking & checkout",
 		icon: (
 			<svg
 				className='h-6 w-6 text-[#0B2B20] dark:text-[#E5A83B]'
@@ -72,10 +72,56 @@ const mvpPillars = [
 	},
 	{
 		number: "04",
-		badge: "Track Empty Beds",
-		title: "Assign a Room & Track Empty Beds",
+		badge: "Rent Ledger & Dues",
+		title: "Automated Monthly Billing & Receipts",
 		description:
-			"Assign new residents to beds in one click. Instantly see which beds are filled and which beds are available for new walk-in tenants.",
+			"Generate monthly billing obligations (YYYY-MM), record partial or full rent collections, track security deposits, and produce digital receipts with unique numbers.",
+		tag: "Receipt serials (RCP-YYYYMM-XXXXXX)",
+		icon: (
+			<svg
+				className='h-6 w-6 text-[#0B2B20] dark:text-[#E5A83B]'
+				fill='none'
+				viewBox='0 0 24 24'
+				stroke='currentColor'
+				strokeWidth='2'
+			>
+				<path
+					strokeLinecap='round'
+					strokeLinejoin='round'
+					d='M9 14l6-6m-5.5.5h.01m4.99 5h.01M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16l4-2 4 2 4-2 4 2z'
+				/>
+			</svg>
+		),
+	},
+	{
+		number: "05",
+		badge: "Indic Voice AI",
+		title: "PG Saathi AI — Voice Assistant",
+		description:
+			"Speak naturally in Hindi, Hinglish, Gujarati, or English. Check vacant rooms, bed counts, rent rates, and pending tenant dues with zero token cost.",
+		tag: "Hindi • Hinglish • Gujarati • English",
+		icon: (
+			<svg
+				className='h-6 w-6 text-[#0B2B20] dark:text-[#E5A83B]'
+				fill='none'
+				viewBox='0 0 24 24'
+				stroke='currentColor'
+				strokeWidth='2'
+			>
+				<path
+					strokeLinecap='round'
+					strokeLinejoin='round'
+					d='M19 11a7 7 0 01-7 7m0 0a7 7 0 01-7-7m7 7v4m0 0H8m4 0h4m-4-8a3 3 0 01-3-3V5a3 3 0 116 0v6a3 3 0 01-3 3z'
+				/>
+			</svg>
+		),
+	},
+	{
+		number: "06",
+		badge: "Live Occupancy",
+		title: "Real-Time Vacant Bed Tracker",
+		description:
+			"Instantly see which beds are occupied, available, or under maintenance. Never lose revenue from unlisted vacancies or double-allocated rooms.",
 		tag: "Instant empty bed visibility",
 		icon: (
 			<svg

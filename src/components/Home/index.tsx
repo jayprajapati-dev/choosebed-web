@@ -1,6 +1,7 @@
 import React from "react";
 import Hero from "./Hero";
 import { PainPoints } from "./PainPoints";
+import PGSaathiShowcase from "./PGSaathiShowcase";
 import Features from "./Features";
 import { Roadmap } from "./Roadmap";
 import HowItWorks from "./HowItWorks";
@@ -12,6 +13,7 @@ const Home = () => {
 		<main className='min-h-screen bg-[#FBF9F5] dark:bg-[#0E1713]'>
 			<Hero />
 			<PainPoints />
+			<PGSaathiShowcase />
 			<Features />
 			<Roadmap />
 			<HowItWorks />

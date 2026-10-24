@@ -44,10 +44,10 @@ const Footer = () => {
 							</li>
 							<li>
 								<Link
-									href='/#preview'
+									href='/#voice-copilot'
 									className='transition-colors hover:text-[#E5A83B]'
 								>
-									Your PG at a Glance
+									PG Saathi AI 🎙️
 								</Link>
 							</li>
 							<li>
