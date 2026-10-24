@@ -251,6 +251,8 @@ export function isWhisperSilenceHallucination(text: string): boolean {
 		"the",
 		"a",
 		"an",
+		"कि अच्छों प्राइब",
+		"अच्छों प्राइब",
 	];
 
 	if (knownPatterns.includes(clean)) return true;
@@ -292,16 +294,11 @@ export async function transcribeAudioWithGroqWhisper(
 	formData.append("temperature", "0.0");
 	formData.append(
 		"prompt",
-		"तुम क्या क्या बता सकते हो? कौन से रूम खाली हैं? કયા રૂમ ખાલી છે? Which beds are available? किसका किराया बाकी है? kaunse room khali hain, kitne beds khali hain, kiska payment baki hai."
+		"Hello, Namaste, तुम क्या क्या बता सकते हो? कौन से रूम खाली हैं? કયા રૂમ ખાલી છે? Which beds are available? किसका किराया बाकी है? kaunse room khali hain, kitne beds khali hain, kiska payment baki hai."
 	);
 
-	// Only specify fixed language if explicitly requested (not "auto")
-	if (languageCode && languageCode !== "auto") {
-		const lang = languageCode.split("-")[0]?.toLowerCase();
-		if (lang && ["hi", "gu", "en", "mr", "ta", "te", "bn"].includes(lang)) {
-			formData.append("language", lang);
-		}
-	}
+	// Note: We do NOT force a hard language constraint on Whisper because Indian owners speak Hinglish
+	// (e.g. speaking 'Hello' or 'AC Room' while Hindi is selected). Whisper's automatic LID with our multilingual prompt handles mixed speech seamlessly.
 
 	const controller = new AbortController();
 	const timeoutId = setTimeout(() => controller.abort(), 12000);

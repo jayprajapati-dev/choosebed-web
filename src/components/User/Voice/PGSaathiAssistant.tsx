@@ -207,17 +207,7 @@ export default function PGSaathiAssistant() {
 				analyser.smoothingTimeConstant = 0.3;
 				const source = audioCtx.createMediaStreamSource(stream);
 				source.connect(analyser);
-
-				// Direct PCM recording pipeline for 100% native 16kHz WAV (bypasses WebM issues)
-				pcmChunksRef.current = [];
-				const scriptProcessor = audioCtx.createScriptProcessor(4096, 1, 1);
-				scriptProcessorRef.current = scriptProcessor;
-				scriptProcessor.onaudioprocess = (e) => {
-					const input = e.inputBuffer.getChannelData(0);
-					pcmChunksRef.current.push(new Float32Array(input));
-				};
-				source.connect(scriptProcessor);
-				scriptProcessor.connect(audioCtx.destination);
+				// NOTE: We do NOT connect to audioCtx.destination to prevent speaker feedback loop!
 
 				const dataArray = new Uint8Array(analyser.frequencyBinCount);
 				let silenceStart: number | null = null;
@@ -255,7 +245,7 @@ export default function PGSaathiAssistant() {
 							return;
 						}
 					} else if (elapsedSinceStart > INITIAL_NO_SPEECH_TIMEOUT_MS) {
-						// User hasn't spoken anything (only background noise/silence for 4s)
+						// User hasn't spoken anything (only background noise/silence for 5s)
 						cancelRecording();
 						return;
 					}
@@ -274,15 +264,8 @@ export default function PGSaathiAssistant() {
 
 			recorder.onstop = async () => {
 				// Immediately release microphone hardware track and analyser
-				if (scriptProcessorRef.current) {
-					try {
-						scriptProcessorRef.current.disconnect();
-					} catch {}
-					scriptProcessorRef.current = null;
-				}
 				stream.getTracks().forEach((track) => track.stop());
 				if (animFrameRef.current) cancelAnimationFrame(animFrameRef.current);
-				const ctxSampleRate = audioContextRef.current?.sampleRate || 16000;
 				if (audioContextRef.current) {
 					audioContextRef.current.close().catch(() => {});
 					audioContextRef.current = null;
@@ -297,25 +280,6 @@ export default function PGSaathiAssistant() {
 						"Recording bahut chhoti thi. Kripya microphone button dabayein aur sawal bolen."
 					);
 					setProcessingState("idle");
-					return;
-				}
-
-				// Preferred: Build 100% native uncompressed 16-bit PCM WAV directly from raw microphone samples
-				const totalPcmSamples = pcmChunksRef.current.reduce(
-					(acc, c) => acc + c.length,
-					0
-				);
-				if (totalPcmSamples > 1600) {
-					const mergedSamples = new Float32Array(totalPcmSamples);
-					let offset = 0;
-					for (const chunk of pcmChunksRef.current) {
-						mergedSamples.set(chunk, offset);
-						offset += chunk.length;
-					}
-					const downsampled = downsampleTo16k(mergedSamples, ctxSampleRate);
-					const wavBuffer = encodePCMToWAV(downsampled, 16000);
-					const wavBlob = new Blob([wavBuffer], { type: "audio/wav" });
-					await processVoiceAudio(wavBlob);
 					return;
 				}
 
