@@ -234,10 +234,10 @@ export default function PGSaathiAssistant() {
 					const normalized = Math.min(100, Math.round((average / 128) * 100));
 					setAudioLevel(normalized);
 
-					// Voice detection threshold & silence timeout (adjusted to prevent laptop fan/ambient noise false triggers)
-					const SPEECH_THRESHOLD = 16;
-					const SILENCE_TIMEOUT_MS = 1400; // 1.4s pause after speech auto-completes utterance
-					const INITIAL_NO_SPEECH_TIMEOUT_MS = 4000; // 4s idle background noise with no speech auto-cancels
+					// Voice detection threshold & silence timeout (gives user natural breath pause)
+					const SPEECH_THRESHOLD = 14;
+					const SILENCE_TIMEOUT_MS = 2000; // 2.0s pause after speech auto-completes utterance without mid-sentence cutoff
+					const INITIAL_NO_SPEECH_TIMEOUT_MS = 5000; // 5s idle background noise with no speech auto-cancels
 
 					const now = Date.now();
 					const elapsedSinceStart = now - recordingStartTimeRef.current;
@@ -469,6 +469,9 @@ export default function PGSaathiAssistant() {
 
 	// Convert input blob to 16kHz mono WAV supported natively by Gnani Prisma
 	const convertBlobToWav = async (blob: Blob): Promise<Blob> => {
+		if (blob.type === "audio/wav" || blob.type === "audio/x-wav") {
+			return blob; // Already clean 16kHz WAV, no need to re-encode!
+		}
 		try {
 			const AudioContextClass =
 				window.AudioContext ||

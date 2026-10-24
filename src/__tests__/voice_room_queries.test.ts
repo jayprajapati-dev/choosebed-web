@@ -215,6 +215,12 @@ async function runVoiceRoomQueryTests() {
 			"Intent: 'Tum kya kya kar sakte ho?' -> CAPABILITIES_OR_HELP"
 		);
 
+		const helpBata = parseRoomBedIntent("tum kya kya bata sakte ho");
+		assert(
+			helpBata.type === "CAPABILITIES_OR_HELP",
+			"Intent: 'tum kya kya bata sakte ho' -> CAPABILITIES_OR_HELP"
+		);
+
 		const help2 = parseRoomBedIntent("Mujhe samajh nahi aa raha, help karo.");
 		assert(
 			help2.type === "CAPABILITIES_OR_HELP",

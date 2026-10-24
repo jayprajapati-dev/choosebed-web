@@ -248,6 +248,9 @@ export function isWhisperSilenceHallucination(text: string): boolean {
 		"silence",
 		"music",
 		"applause",
+		"the",
+		"a",
+		"an",
 	];
 
 	if (knownPatterns.includes(clean)) return true;
@@ -289,7 +292,7 @@ export async function transcribeAudioWithGroqWhisper(
 	formData.append("temperature", "0.0");
 	formData.append(
 		"prompt",
-		"ChooseBed PG operations: available rooms, empty beds, AC, Non-AC, double sharing, monthly rent, tenant dues, resident admission, kaunse room khali hain, which bed is available, ketla bed khali che, kiska payment baki hai."
+		"तुम क्या क्या बता सकते हो? कौन से रूम खाली हैं? કયા રૂમ ખાલી છે? Which beds are available? किसका किराया बाकी है? kaunse room khali hain, kitne beds khali hain, kiska payment baki hai."
 	);
 
 	// Only specify fixed language if explicitly requested (not "auto")

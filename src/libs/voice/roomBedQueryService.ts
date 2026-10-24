@@ -673,7 +673,7 @@ export function parseRoomBedIntent(
 	// 11. Capabilities & Help Queries
 	// Examples: "Tum kya kya kar sakte ho?", "Tum kya-kya kar sakte ho?", "Help karo", "What can you do?"
 	const isHelpQuery =
-		/(?:kya[- ]*(?:kya)?\s*kar\s*sakte|what\s*(?:can)?\s*you\s*do|tum\s*kya|aap\s*kya|kaise\s*madad|kaise\s*help|help\s*me|help\s*karo|kaise\s*use\s*karein|shuru\s*karein|kya\s*kar\s*sakta|क्या\s*(?:क्या)?\s*कर\s*सकते|मदद|તમે\s*શું\s*કરી\s*શકો)/i.test(
+		/(?:kya[- ]*(?:kya)?\s*(?:kar|bata)\s*sakte|what\s*(?:can)?\s*you\s*do|tum\s*kya|aap\s*kya|kaise\s*madad|kaise\s*help|help\s*me|help\s*karo|kaise\s*use\s*karein|shuru\s*karein|kya\s*(?:kar|bata)\s*sakta|क्या\s*(?:क्या)?\s*(?:कर|बता)\s*सकते|मदद|તમે\s*શું\s*(?:કરી|કહી)\s*શકો)/i.test(
 			lower
 		) ||
 		lower === "help" ||
