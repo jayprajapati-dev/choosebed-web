@@ -86,7 +86,7 @@ export async function parseIntentWithGroq(
 	const sanitizedQuery = sanitizeInputForGroq(userQuery);
 	if (!sanitizedQuery) return null;
 
-	const systemPrompt = `You are an intent parser for "Choose Ghar", an Indian PG/Hostel management SaaS.
+	const systemPrompt = `You are an intent parser for "Choose Bed", an Indian PG/Hostel management SaaS.
 Classify the user's spoken or typed query (Hindi, Gujarati, Hinglish, English) into exactly one supported intent.
 
 Allowed intents:
@@ -204,6 +204,100 @@ Respond strictly in JSON format:
 		if (error.name !== "AbortError") {
 			console.warn("[Groq Client] Warning:", error.message || error);
 		}
+		return null;
+	}
+}
+
+export interface GroqWhisperResult {
+	success: boolean;
+	transcript: string;
+	language?: string;
+}
+
+/**
+ * Transcribes audio buffer using Groq Whisper (whisper-large-v3-turbo).
+ * Extremely fast (~150ms) and accepts WebM, WAV, MP3, M4A, OGG natively.
+ */
+export async function transcribeAudioWithGroqWhisper(
+	audioBuffer: Buffer | Uint8Array,
+	mimeType: string,
+	languageCode?: string
+): Promise<GroqWhisperResult | null> {
+	const apiKey = process.env.GROQ_API_KEY?.trim();
+	if (!apiKey) return null;
+
+	let extension = "wav";
+	if (mimeType.includes("webm")) extension = "webm";
+	else if (mimeType.includes("ogg")) extension = "ogg";
+	else if (mimeType.includes("mp4") || mimeType.includes("m4a"))
+		extension = "m4a";
+	else if (mimeType.includes("mpeg") || mimeType.includes("mp3"))
+		extension = "mp3";
+
+	const formData = new FormData();
+	const blob = new Blob([audioBuffer as unknown as BlobPart], {
+		type: mimeType,
+	});
+	formData.append("file", blob, `audio.${extension}`);
+	formData.append("model", "whisper-large-v3-turbo");
+	formData.append("response_format", "verbose_json");
+	formData.append("temperature", "0.0");
+	formData.append(
+		"prompt",
+		"ChooseBed PG and Hostel operations: available rooms, beds, vacancies, AC, Non-AC, sharing, monthly rent, tenant dues, resident admission, kaunse, kitne, khali, baki."
+	);
+
+	// Only specify fixed language if explicitly requested (not "auto")
+	if (languageCode && languageCode !== "auto") {
+		const lang = languageCode.split("-")[0]?.toLowerCase();
+		if (lang && ["hi", "gu", "en", "mr", "ta", "te", "bn"].includes(lang)) {
+			formData.append("language", lang);
+		}
+	}
+
+	const controller = new AbortController();
+	const timeoutId = setTimeout(() => controller.abort(), 12000);
+
+	try {
+		const response = await fetch(
+			"https://api.groq.com/openai/v1/audio/transcriptions",
+			{
+				method: "POST",
+				headers: {
+					Authorization: `Bearer ${apiKey}`,
+				},
+				body: formData,
+				signal: controller.signal,
+			}
+		);
+
+		clearTimeout(timeoutId);
+
+		if (!response.ok) {
+			const errText = await response.text().catch(() => "");
+			console.warn(`[Groq Whisper] HTTP ${response.status}:`, errText);
+			return null;
+		}
+
+		const data = await response.json();
+		const transcript = (data.text || "").trim();
+
+		// Normalize detected language from Whisper verbose_json
+		let detectedLang = "hi";
+		const rawLang = (data.language || "").toLowerCase();
+		if (rawLang.includes("english") || rawLang === "en") detectedLang = "en";
+		else if (rawLang.includes("gujarati") || rawLang === "gu")
+			detectedLang = "gu";
+		else if (rawLang.includes("hindi") || rawLang === "hi") detectedLang = "hi";
+
+		return {
+			success: Boolean(transcript),
+			transcript,
+			language: detectedLang,
+		};
+	} catch (err: any) {
+		clearTimeout(timeoutId);
+		console.warn("[Groq Whisper] Transcribe error:", err?.message || err);
 		return null;
 	}
 }

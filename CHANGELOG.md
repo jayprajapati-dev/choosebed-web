@@ -1,6 +1,6 @@
 # Changelog
 
-All notable changes to the **Choose Ghar** and **PG Saathi AI** platform are documented in this file.
+All notable changes to the **Choose Bed** and **PG Saathi AI** platform are documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
@@ -10,6 +10,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [1.6.2] - 2026-10-24
 
 ### Added
+
 - **PG Saathi AI Conversational Engine**:
   - Deterministic Indic and English natural language parser (Hindi, Gujarati, Roman Hindi / Hinglish, English).
   - Central Capability Registry enforcing verified query contracts, strict data boundaries, and safe fallbacks.
@@ -28,6 +29,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   - Standardized `SECURITY.md`, `CONTRIBUTING.md`, `LICENSE`, and `package.json` scripts.
 
 ### Fixed
+
 - **Voice Assistant Bug Regressions**:
   - Fixed AC/Non-AC filtering: prevented AC vacancy checks from returning `NON_AC` rooms.
   - Fixed resident admission requests ("ऐड कर लो राहुल नेम का") being erroneously treated as vacancy checks.
@@ -36,6 +38,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   - Replaced internal milestone label `(Phase E)` on Dashboard Add Property button with clean production copy.
 
 ### Security
+
 - Verified strict multi-tenant boundary checks across all owner property, room, resident, and ledger queries.
 - Ensured voice assistant operates 100% read-only with zero database mutation surface.
 - Hardened Edge middleware (`src/middleware.ts`) against account suspension and role tampering.
@@ -45,6 +48,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [1.6.0] - 2026-10-15
 
 ### Added
+
 - Phase F: Financial ledger, rent charge generation, and partial payment recording.
 - Multi-building property portfolio support for verified owners.
 - Digital resident check-ins, bed inventory allocation, and check-out workflows.

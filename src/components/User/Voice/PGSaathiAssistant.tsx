@@ -67,8 +67,8 @@ export default function PGSaathiAssistant() {
 	const [errorMessage, setErrorMessage] = useState<string | null>(null);
 	const [typedInput, setTypedInput] = useState("");
 	const [selectedLanguage, setSelectedLanguage] = useState<
-		"hi-IN" | "gu-IN" | "en-IN"
-	>("hi-IN");
+		"auto" | "hi-IN" | "gu-IN" | "en-IN"
+	>("auto");
 
 	// Strict Credit Safeguard: Voice Reply Toggle (Defaults to ON, allows 1-click Text-Only Mode)
 	const [voiceRepliesEnabled, setVoiceRepliesEnabled] = useState(true);
@@ -100,6 +100,8 @@ export default function PGSaathiAssistant() {
 	const audioContextRef = useRef<AudioContext | null>(null);
 	const hasDetectedSpeechRef = useRef(false);
 	const animFrameRef = useRef<number | null>(null);
+	const pcmChunksRef = useRef<Float32Array[]>([]);
+	const scriptProcessorRef = useRef<ScriptProcessorNode | null>(null);
 
 	// Dedicated Audio Player for Gnani Timbre TTS
 	const currentAudioRef = useRef<HTMLAudioElement | null>(null);
@@ -206,6 +208,17 @@ export default function PGSaathiAssistant() {
 				const source = audioCtx.createMediaStreamSource(stream);
 				source.connect(analyser);
 
+				// Direct PCM recording pipeline for 100% native 16kHz WAV (bypasses WebM issues)
+				pcmChunksRef.current = [];
+				const scriptProcessor = audioCtx.createScriptProcessor(4096, 1, 1);
+				scriptProcessorRef.current = scriptProcessor;
+				scriptProcessor.onaudioprocess = (e) => {
+					const input = e.inputBuffer.getChannelData(0);
+					pcmChunksRef.current.push(new Float32Array(input));
+				};
+				source.connect(scriptProcessor);
+				scriptProcessor.connect(audioCtx.destination);
+
 				const dataArray = new Uint8Array(analyser.frequencyBinCount);
 				let silenceStart: number | null = null;
 
@@ -261,8 +274,15 @@ export default function PGSaathiAssistant() {
 
 			recorder.onstop = async () => {
 				// Immediately release microphone hardware track and analyser
+				if (scriptProcessorRef.current) {
+					try {
+						scriptProcessorRef.current.disconnect();
+					} catch {}
+					scriptProcessorRef.current = null;
+				}
 				stream.getTracks().forEach((track) => track.stop());
 				if (animFrameRef.current) cancelAnimationFrame(animFrameRef.current);
+				const ctxSampleRate = audioContextRef.current?.sampleRate || 16000;
 				if (audioContextRef.current) {
 					audioContextRef.current.close().catch(() => {});
 					audioContextRef.current = null;
@@ -270,10 +290,37 @@ export default function PGSaathiAssistant() {
 				setAudioLevel(0);
 
 				const durationMs = Date.now() - recordingStartTimeRef.current;
-				const audioBlob = new Blob(audioChunksRef.current, { type: mimeType });
 
-				// Strict Credit Safeguard: Reject micro-recordings under 500ms or <1KB
-				if (durationMs < 500 || audioBlob.size < MIN_AUDIO_BYTES) {
+				// Strict Credit Safeguard: Reject micro-recordings under 500ms
+				if (durationMs < 500) {
+					setErrorMessage(
+						"Recording bahut chhoti thi. Kripya microphone button dabayein aur sawal bolen."
+					);
+					setProcessingState("idle");
+					return;
+				}
+
+				// Preferred: Build 100% native uncompressed 16-bit PCM WAV directly from raw microphone samples
+				const totalPcmSamples = pcmChunksRef.current.reduce(
+					(acc, c) => acc + c.length,
+					0
+				);
+				if (totalPcmSamples > 1600) {
+					const mergedSamples = new Float32Array(totalPcmSamples);
+					let offset = 0;
+					for (const chunk of pcmChunksRef.current) {
+						mergedSamples.set(chunk, offset);
+						offset += chunk.length;
+					}
+					const downsampled = downsampleTo16k(mergedSamples, ctxSampleRate);
+					const wavBuffer = encodePCMToWAV(downsampled, 16000);
+					const wavBlob = new Blob([wavBuffer], { type: "audio/wav" });
+					await processVoiceAudio(wavBlob);
+					return;
+				}
+
+				const audioBlob = new Blob(audioChunksRef.current, { type: mimeType });
+				if (audioBlob.size < MIN_AUDIO_BYTES) {
 					setErrorMessage(
 						"Recording bahut chhoti thi. Kripya microphone button dabayein aur sawal bolen."
 					);
@@ -388,6 +435,36 @@ export default function PGSaathiAssistant() {
 			view.setInt16(offset, s < 0 ? s * 0x8000 : s * 0x7fff, true);
 		}
 		return buffer;
+	};
+
+	// Downsample float32 audio samples to 16kHz for Indic speech recognition
+	const downsampleTo16k = (
+		buffer: Float32Array,
+		inputSampleRate: number
+	): Float32Array => {
+		if (inputSampleRate === 16000) return buffer;
+		const ratio = inputSampleRate / 16000;
+		const newLength = Math.round(buffer.length / ratio);
+		const result = new Float32Array(newLength);
+		let offsetResult = 0;
+		let offsetBuffer = 0;
+		while (offsetResult < result.length) {
+			const nextOffsetBuffer = Math.round((offsetResult + 1) * ratio);
+			let accum = 0;
+			let count = 0;
+			for (
+				let i = offsetBuffer;
+				i < nextOffsetBuffer && i < buffer.length;
+				i++
+			) {
+				accum += buffer[i];
+				count++;
+			}
+			result[offsetResult] = count > 0 ? accum / count : 0;
+			offsetResult++;
+			offsetBuffer = nextOffsetBuffer;
+		}
+		return result;
 	};
 
 	// Convert input blob to 16kHz mono WAV supported natively by Gnani Prisma
@@ -881,9 +958,10 @@ export default function PGSaathiAssistant() {
 									className='rounded-md border border-stroke bg-gray-1 px-2 py-1 text-xs font-medium text-dark dark:border-stroke-dark dark:bg-dark-2 dark:text-white'
 									title='Select Language'
 								>
+									<option value='auto'>Auto (Eng / Hin / Guj)</option>
 									<option value='hi-IN'>Hindi / Hinglish</option>
 									<option value='gu-IN'>Gujarati (ગુજરાતી)</option>
-									<option value='en-IN'>Indian English</option>
+									<option value='en-IN'>English</option>
 								</select>
 
 								{/* Close Button */}

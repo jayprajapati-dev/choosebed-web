@@ -1,6 +1,6 @@
 # System Architecture Overview
 
-Choose Ghar is a multi-tenant Indian PG and Hostel Management SaaS integrated with **PG Saathi AI** — an Indic voice intelligence assistant for business owners.
+Choose Bed is a multi-tenant Indian PG and Hostel Management SaaS integrated with **PG Saathi AI** — an Indic voice intelligence assistant for business owners.
 
 This document details the high-level architecture, frontend/backend boundaries, authentication flow, data isolation, and the hybrid voice conversation pipeline.
 
@@ -8,12 +8,12 @@ This document details the high-level architecture, frontend/backend boundaries, 
 
 ## 🏛️ High-Level System Architecture
 
-Choose Ghar is built on **Next.js 15 (App Router)** and **React 19**, deployed with PostgreSQL via **Prisma ORM**.
+Choose Bed is built on **Next.js 15 (App Router)** and **React 19**, deployed with PostgreSQL via **Prisma ORM**.
 
 ```mermaid
 graph TD
     Client["Client Browser (Desktop & Mobile PWA)"]
-    
+
     subgraph Edge["Edge Network & Routing"]
         MW["src/middleware.ts<br/>(Edge Session & RBAC Enforcement)"]
     end
@@ -98,7 +98,7 @@ sequenceDiagram
 
 ## 🏢 Multi-Tenant Data Isolation Model
 
-Choose Ghar uses a shared-database, row-level tenant isolation pattern enforced through owner scoping:
+Choose Bed uses a shared-database, row-level tenant isolation pattern enforced through owner scoping:
 
 ```mermaid
 erDiagram
@@ -113,6 +113,7 @@ erDiagram
 ```
 
 ### Isolation Invariants:
+
 1. Every business query verifies ownership: `where: { propertyId: { in: ownerPropertyIds } }` or `where: { ownerId: session.user.id }`.
 2. Bed allocations use database unique constraints: a bed can hold at most one active resident.
 3. Monthly rent charges enforce `@@unique([residentId, billingPeriod])` preventing duplicate billings.
@@ -129,7 +130,7 @@ flowchart TD
     AudioIn["User Mic Audio / Typed Query"] --> VAD["Client VAD & Silence Detector<br/>(1.4s post-speech auto-stop)"]
     VAD --> STTAPI["POST /api/user/voice/transcribe<br/>(Gnani Prisma STT)"]
     STTAPI --> Normalized["Normalized Query Text<br/>(Indic digits, fillers stripped)"]
-    
+
     subgraph HybridEngine["Hybrid Intent Resolution"]
         LayerA["Layer A: Deterministic Indic Parser<br/>(RegEx, Indic script, context memory)"]
         LayerB["Layer B: Groq Cloud LLM<br/>(Called only if confidence < 0.75)"]

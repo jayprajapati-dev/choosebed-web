@@ -1,7 +1,7 @@
 /**
  * run_all_tests.ts
  *
- * Master Automated Test Suite Runner for Choose Ghar & PG Saathi AI.
+ * Master Automated Test Suite Runner for Choose Bed & PG Saathi AI.
  * Sequentially executes all 8 domain, security, and voice test suites.
  */
 
@@ -46,7 +46,7 @@ async function main() {
 	console.log(
 		"================================================================="
 	);
-	console.log("Choose Ghar + PG Saathi AI — Master Test Suite Verification");
+	console.log("Choose Bed + PG Saathi AI — Master Test Suite Verification");
 	console.log(
 		"=================================================================\n"
 	);

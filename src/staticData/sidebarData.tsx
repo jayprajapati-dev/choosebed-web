@@ -24,8 +24,7 @@ export const sidebarData = [
 		id: 2,
 		titleKey: "properties",
 		title: "Properties",
-		path: "/user/properties",
-		comingSoon: "Phase E",
+		path: "/user",
 		icon: (
 			<svg
 				className='h-5 w-5'

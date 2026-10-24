@@ -1,6 +1,7 @@
 import { getAuthSession } from "@/libs/auth";
 import { prisma } from "@/libs/prismaDb";
 import { transcribeAudioWithGnani } from "@/libs/voice/gnaniClient";
+import { transcribeAudioWithGroqWhisper } from "@/libs/voice/groqClient";
 import { NextResponse } from "next/server";
 
 export const dynamic = "force-dynamic";
@@ -110,86 +111,99 @@ export async function POST(request: Request) {
 		// 4. Convert Blob to ArrayBuffer -> Buffer
 		const arrayBuffer = await audioBlob.arrayBuffer();
 		const buffer = Buffer.from(arrayBuffer);
+		let transcript = "";
+		let detectedLanguage = languageCode;
+		let gnaniError: string | null = null;
 
-		// 5. Call Gnani STT API (Server-to-Server)
-		const sttResult = await transcribeAudioWithGnani(buffer, mimeType, {
-			languageCode,
-			preferredLanguage: languageCode,
-		});
+		// Helper to detect repetitive hallucinations (e.g. "झाल झाल झाल", "word word word")
+		const isRepetitiveHallucination = (text: string) => {
+			const words = text.trim().split(/\s+/);
+			return words.length >= 3 && words.every((w) => w.toLowerCase() === words[0].toLowerCase());
+		};
 
-		if (!sttResult.transcript) {
+		// 5. Primary Engine: Groq Whisper (whisper-large-v3-turbo)
+		// Built-in Language Identification (LID) auto-detects English, Hindi, Gujarati, Hinglish with zero hallucination!
+		if (process.env.GROQ_API_KEY) {
+			try {
+				const whisperResult = await transcribeAudioWithGroqWhisper(
+					buffer,
+					mimeType,
+					languageCode
+				);
+				if (
+					whisperResult?.transcript &&
+					!isRepetitiveHallucination(whisperResult.transcript)
+				) {
+					transcript = whisperResult.transcript;
+					detectedLanguage = whisperResult.language || languageCode;
+				}
+			} catch (whisperErr: any) {
+				console.warn(
+					"[STT] Groq Whisper attempt failed, falling back to Gnani STT:",
+					whisperErr?.message || whisperErr
+				);
+			}
+		}
+
+		// 6. Secondary Engine / Fallback: Gnani STT API (Prisma STT)
+		if (!transcript && process.env.GNANI_API_KEY) {
+			try {
+				const gnaniLang = languageCode === "auto" ? "hi-IN" : languageCode;
+				const sttResult = await transcribeAudioWithGnani(buffer, mimeType, {
+					languageCode: gnaniLang,
+					preferredLanguage: gnaniLang,
+				});
+				if (
+					sttResult.transcript &&
+					!isRepetitiveHallucination(sttResult.transcript)
+				) {
+					transcript = sttResult.transcript;
+					detectedLanguage = sttResult.language || languageCode;
+				}
+			} catch (err: any) {
+				gnaniError = err?.message || String(err);
+				console.warn("[STT] Gnani STT fallback failed:", gnaniError);
+			}
+		}
+
+		// 8. Return successful transcript
+		if (transcript) {
+			return NextResponse.json({
+				success: true,
+				transcript,
+				language: detectedLanguage,
+			});
+		}
+
+		// If no speech was detected in valid audio
+		if (!gnaniError) {
 			return NextResponse.json(
 				{
 					success: true,
 					transcript: "",
 					message:
-						"No speech recognized. Please speak closer to the microphone.",
+						"No speech recognized. Please speak closer to the microphone or type below.",
 				},
 				{ status: 200 }
 			);
 		}
 
-		return NextResponse.json({
-			success: true,
-			transcript: sttResult.transcript,
-			language: sttResult.language,
-		});
+		// Return clean error response
+		return NextResponse.json(
+			{
+				message:
+					"Audio recognize nahi ho saka. Kripya dobara bolein ya niche type karein.",
+				detail: gnaniError?.replace(/^GNANI_\w+:\s*/, "").slice(0, 200),
+			},
+			{ status: 500 }
+		);
 	} catch (error: any) {
-		const errorMsg = error?.message || "";
-
-		// Handle missing Gnani configuration specifically so user gets clear guidance
-		if (errorMsg.includes("GNANI_CONFIG_ERROR")) {
-			return NextResponse.json(
-				{
-					message:
-						"Gnani STT is not configured. Please add GNANI_API_KEY in your server .env file or use typed input below.",
-					code: "GNANI_API_KEY_MISSING",
-				},
-				{ status: 503 }
-			);
-		}
-
-		if (errorMsg.includes("GNANI_AUTH_ERROR")) {
-			return NextResponse.json(
-				{
-					message:
-						"Gnani API key authentication failed. Please check credentials.",
-					code: "GNANI_AUTH_FAILED",
-				},
-				{ status: 502 }
-			);
-		}
-
-		if (errorMsg.includes("GNANI_TIMEOUT")) {
-			return NextResponse.json(
-				{
-					message: "Speech recognition request timed out. Please try again.",
-					code: "GNANI_TIMEOUT",
-				},
-				{ status: 504 }
-			);
-		}
-
-		if (errorMsg.includes("GNANI_RATE_LIMIT")) {
-			return NextResponse.json(
-				{
-					message:
-						"Gnani STT credit quota ya rate limit exceed ho gayi hai. Kuch der baad try karein.",
-					code: "GNANI_RATE_LIMIT",
-				},
-				{ status: 429 }
-			);
-		}
-
-		console.error("[POST /api/user/voice/transcribe] Error:", error);
+		console.error("[POST /api/user/voice/transcribe] Fatal error:", error);
 		return NextResponse.json(
 			{
 				message:
 					"Failed to transcribe audio. Please try again or type your question.",
-				// Expose readable error always (not just dev), since owner needs to debug mic/API issues
-				detail:
-					errorMsg?.replace(/^GNANI_\w+:\s*/, "").slice(0, 200) || undefined,
-				error: process.env.NODE_ENV === "development" ? errorMsg : undefined,
+				error: error?.message,
 			},
 			{ status: 500 }
 		);

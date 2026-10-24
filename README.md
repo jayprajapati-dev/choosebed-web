@@ -1,4 +1,4 @@
-# Choose Ghar (ChooseBed) + PG Saathi AI
+# Choose Bed + PG Saathi AI
 
 _Simplifying PG operations with practical property management tools and multilingual voice assistance._
 
@@ -17,13 +17,13 @@ Managing Paying Guest (PG) accommodations, student hostels, and co-living facili
 
 When owners need quick operational answers—such as _"Room 102 mein kitne beds khali hain?"_ or _"Kiska rent baki hai?"_—they often have to navigate complex software menus or flip through manual notebooks.
 
-**Choose Ghar** (chooseghar.com / choosebed.com) is a full-stack property management platform tailored specifically for Indian PG and hostel operators. Embedded directly within the platform is **PG Saathi AI**, an Indic voice copilot that allows caretakers and property owners to check room vacancies, bed availability, rent rates, and resident pending dues using natural speech in **Hindi, Roman Hindi (Hinglish), Gujarati, and English**.
+**Choose Bed** (choosebed.com) is a full-stack property management platform tailored specifically for Indian PG and hostel operators. Embedded directly within the platform is **PG Saathi AI**, an Indic voice copilot that allows caretakers and property owners to check room vacancies, bed availability, rent rates, and resident pending dues using natural speech in **Hindi, Roman Hindi (Hinglish), Gujarati, and English**.
 
 ---
 
 ## 🎯 Problem and Solution
 
-| Operational Challenge               | How Choose Ghar & PG Saathi AI Solves It                                                                                                            | Status          |
+| Operational Challenge               | How Choose Bed & PG Saathi AI Solves It                                                                                                             | Status          |
 | :---------------------------------- | :-------------------------------------------------------------------------------------------------------------------------------------------------- | :-------------- |
 | **Manual Room & Bed Tracking**      | Atomic inventory generation for Single, Double, Triple, and Four-sharing rooms with real-time status (`AVAILABLE`, `OCCUPIED`, `MAINTENANCE`).      | **Implemented** |
 | **Resident Admission & Invariants** | Digital resident records with identity verification, room allocation, and automated bed status locking to eliminate double bookings.                | **Implemented** |
@@ -38,7 +38,7 @@ When owners need quick operational answers—such as _"Room 102 mein kitne beds 
 
 ```text
 +-----------------------------------------------------------------------------------+
-|  Choose Ghar - PG Operations Dashboard                                 [Demo PG]  |
+|  Choose Bed - PG Operations Dashboard                                  [Demo PG]  |
 +-----------------------------------------------------------------------------------+
 |  [Total Beds: 24]    [Occupied: 18]    [Vacant: 6]    [Pending Dues: ₹14,500]     |
 |                                                                                   |
@@ -167,7 +167,7 @@ flowchart TD
 ## 📁 Repository Structure
 
 ```text
-choose-ghar/
+choosebed/
 ├── .github/
 │   ├── workflows/ci.yml         # GitHub Actions CI (typecheck, lint, test, build)
 │   ├── ISSUE_TEMPLATE/          # Standard bug report and feature request templates
@@ -257,8 +257,8 @@ Open `.env` in your editor and configure the necessary variables:
 
 ```env
 # Database Connection (PostgreSQL required)
-DATABASE_URL="postgresql://postgres:password@localhost:5432/chooseghar?schema=public"
-DIRECT_URL="postgresql://postgres:password@localhost:5432/chooseghar"
+DATABASE_URL="postgresql://postgres:password@localhost:5432/choosebed?schema=public"
+DIRECT_URL="postgresql://postgres:password@localhost:5432/choosebed"
 
 # NextAuth Configuration
 NEXTAUTH_URL="http://localhost:3000"
@@ -311,7 +311,7 @@ Open [http://localhost:3000](http://localhost:3000) in your web browser.
 
 ## 🧪 Testing & Code Quality
 
-Choose Ghar is backed by an automated test suite containing **8 test suites and 158 verified test assertions**.
+Choose Bed is backed by an automated test suite containing **8 test suites and 158 verified test assertions**.
 
 ### Available Verification Scripts
 
@@ -336,7 +336,7 @@ npm run test-build
 
 ```text
 =================================================================
-Choose Ghar + PG Saathi AI — Master Test Suite Verification
+Choose Bed + PG Saathi AI — Master Test Suite Verification
 =================================================================
 
 ▶ Running: Admin Security & Privilege Escalation (admin_security.test.ts)... ✅ PASS (6.2s)
@@ -412,7 +412,7 @@ This repository was developed as part of the **Great Indian AI Internship Challe
 
 India is home to millions of micro-entrepreneurs and property managers who operate student hostels and paying guest facilities. Most modern SaaS software is built primarily in English with complex nested dashboards, creating an accessibility barrier for non-English speaking operators.
 
-**Choose Ghar + PG Saathi AI** demonstrates how combining robust full-stack web architecture with localized **Indic Voice Intelligence** can solve authentic operational friction. By grounding spoken Indian-language queries directly into a relational database with zero-token deterministic resolution, the platform delivers high utility while maintaining ultra-low operational inference costs.
+**Choose Bed + PG Saathi AI** demonstrates how combining robust full-stack web architecture with localized **Indic Voice Intelligence** can solve authentic operational friction. By grounding spoken Indian-language queries directly into a relational database with zero-token deterministic resolution, the platform delivers high utility while maintaining ultra-low operational inference costs.
 
 ---
 

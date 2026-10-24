@@ -1,6 +1,6 @@
 # Testing Strategy & Verification Matrix
 
-Choose Ghar and PG Saathi AI maintain a rigorous automated test suite designed to ensure multi-tenant data safety, financial ledger consistency, role-based security, and conversational AI reliability.
+Choose Bed and PG Saathi AI maintain a rigorous automated test suite designed to ensure multi-tenant data safety, financial ledger consistency, role-based security, and conversational AI reliability.
 
 ---
 
@@ -17,17 +17,17 @@ Choose Ghar and PG Saathi AI maintain a rigorous automated test suite designed t
 
 The project includes 8 dedicated test suites located under `src/__tests__/`:
 
-| Test Suite | File | Scope & Invariants Tested | Assertions | Status |
-| :--- | :--- | :--- | :--- | :--- |
-| **1. Admin Security** | `admin_security.test.ts` | Super Admin route guards, unauthenticated API 401/307 rejection, public registration role tampering prevention (`role: ADMIN` stripped). | 5 | ✅ PASS |
-| **2. Notifications** | `notifications.test.ts` | Notifications API authentication requirements, unauthenticated 401 enforcement. | 1 | ✅ PASS |
-| **3. Owner Onboarding** | `owner_onboarding.test.ts` | Mobile number & email login, bcrypt password hashing, suspension enforcement, setup wizard locking, property tenant isolation. | 25 | ✅ PASS |
-| **4. Rent Dues & Ledger** | `rent_dues.test.ts` | Duplicate monthly billing prevention, partial payment calculation, settlement precedence, overpayment blocking, deposit segregation, receipt uniqueness. | 11 | ✅ PASS |
-| **5. Residents & Beds** | `residents.test.ts` | Atomic check-in transactions, OCCUPIED/MAINTENANCE bed allocation blocks, partial unique index locks, checkout bed restoration, occupancy rates. | 10 | ✅ PASS |
-| **6. Rooms & Beds** | `rooms_beds.test.ts` | Atomic bed generation across sharing tiers (1–4), unique room number constraint per property, cross-property room reuse, cascade deletion. | 7 | ✅ PASS |
-| **7. Auth Regressions** | `security.test.ts` | Session provider tampering prevention, JWT update callback database refetching, query log suppression in production, impersonation passwords. | 6 | ✅ PASS |
-| **8. PG Saathi Voice AI** | `voice_room_queries.test.ts` | Capability Registry validation, multilingual intent parsing (Hindi, Gujarati, English, Indic numerals), conversational follow-up context TTL, AC room filter isolation, live dues queries. | 93 | ✅ PASS |
-| **Total** | | **8 Comprehensive Automated Test Suites** | **158** | **100% PASS** |
+| Test Suite                | File                         | Scope & Invariants Tested                                                                                                                                                                  | Assertions | Status        |
+| :------------------------ | :--------------------------- | :----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | :--------- | :------------ |
+| **1. Admin Security**     | `admin_security.test.ts`     | Super Admin route guards, unauthenticated API 401/307 rejection, public registration role tampering prevention (`role: ADMIN` stripped).                                                   | 5          | ✅ PASS       |
+| **2. Notifications**      | `notifications.test.ts`      | Notifications API authentication requirements, unauthenticated 401 enforcement.                                                                                                            | 1          | ✅ PASS       |
+| **3. Owner Onboarding**   | `owner_onboarding.test.ts`   | Mobile number & email login, bcrypt password hashing, suspension enforcement, setup wizard locking, property tenant isolation.                                                             | 25         | ✅ PASS       |
+| **4. Rent Dues & Ledger** | `rent_dues.test.ts`          | Duplicate monthly billing prevention, partial payment calculation, settlement precedence, overpayment blocking, deposit segregation, receipt uniqueness.                                   | 11         | ✅ PASS       |
+| **5. Residents & Beds**   | `residents.test.ts`          | Atomic check-in transactions, OCCUPIED/MAINTENANCE bed allocation blocks, partial unique index locks, checkout bed restoration, occupancy rates.                                           | 10         | ✅ PASS       |
+| **6. Rooms & Beds**       | `rooms_beds.test.ts`         | Atomic bed generation across sharing tiers (1–4), unique room number constraint per property, cross-property room reuse, cascade deletion.                                                 | 7          | ✅ PASS       |
+| **7. Auth Regressions**   | `security.test.ts`           | Session provider tampering prevention, JWT update callback database refetching, query log suppression in production, impersonation passwords.                                              | 6          | ✅ PASS       |
+| **8. PG Saathi Voice AI** | `voice_room_queries.test.ts` | Capability Registry validation, multilingual intent parsing (Hindi, Gujarati, English, Indic numerals), conversational follow-up context TTL, AC room filter isolation, live dues queries. | 93         | ✅ PASS       |
+| **Total**                 |                              | **8 Comprehensive Automated Test Suites**                                                                                                                                                  | **158**    | **100% PASS** |
 
 ---
 
@@ -40,9 +40,10 @@ npx tsx src/__tests__/run_all_tests.ts
 ```
 
 Output:
+
 ```text
 =================================================================
-Choose Ghar + PG Saathi AI — Master Test Suite Verification
+Choose Bed + PG Saathi AI — Master Test Suite Verification
 =================================================================
 ▶ Running: Admin Security & Privilege Escalation (admin_security.test.ts)... ✅ PASS (8.1s)
 ▶ Running: Notifications Endpoint Security (notifications.test.ts)... ✅ PASS (3.0s)
@@ -75,5 +76,6 @@ npx tsx src/__tests__/admin_security.test.ts
 ## 🛡️ Mocking Strategy
 
 To guarantee reproducible tests and avoid live API rate-limits:
+
 - **Groq Client**: Unit tests verify graceful degradation when `GROQ_API_KEY` is omitted and test token/latency metric counters without hitting external LLM endpoints.
 - **Gnani STT / TTS**: Safeguard tests verify that missing keys trigger clean `GNANI_CONFIG_ERROR` exceptions, test text emoji stripping, and validate indicated digit normalization (`૧૦૨` -> `102`) completely in memory.

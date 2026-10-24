@@ -1,6 +1,6 @@
 # Security Policy
 
-Choose Ghar and PG Saathi AI take security, tenant data isolation, and responsible disclosure seriously. This document outlines our vulnerability disclosure process, threat model, and core security controls.
+Choose Bed and PG Saathi AI take security, tenant data isolation, and responsible disclosure seriously. This document outlines our vulnerability disclosure process, threat model, and core security controls.
 
 ---
 
@@ -17,7 +17,7 @@ Only the latest version on the `main` branch receives active security updates an
 
 ## 🔐 Core Security Architecture
 
-Choose Ghar enforces strict multi-tenant and role-based architectural boundaries:
+Choose Bed enforces strict multi-tenant and role-based architectural boundaries:
 
 1. **Role-Based Access Control (RBAC)**:
    - `ADMIN`: High-level platform health, owner lifecycle (`ACTIVE`, `SUSPENDED`), property verification, and tamper-evident audit trails. Cannot access owner operations.
@@ -53,7 +53,7 @@ If you discover a security vulnerability, please **DO NOT** open a public issue 
 ### Responsible Disclosure Process:
 
 1. **Email Details**: Send a detailed vulnerability report to:
-   - **Email**: `security@chooseghar.com` (or repository maintainer contact)
+   - **Email**: `security@choosebed.com` (or repository maintainer contact)
 2. **Include in Report**:
    - Type of vulnerability (e.g., IDOR, privilege escalation, credential leakage, SSRF).
    - Step-by-step reproduction instructions or proof-of-concept (PoC).
@@ -69,6 +69,7 @@ If you discover a security vulnerability, please **DO NOT** open a public issue 
 ## 🚫 Out of Scope
 
 The following issues are generally considered out of scope:
+
 - Rate-limiting reports on public marketing static assets without service impact.
 - Vulnerabilities requiring physical access to a user's unlocked device.
 - Known development banners or local environment mocks without server exposure.

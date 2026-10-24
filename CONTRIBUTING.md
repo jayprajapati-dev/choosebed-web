@@ -1,6 +1,6 @@
-# Contributing to Choose Ghar & PG Saathi AI
+# Contributing to Choose Bed & PG Saathi AI
 
-Thank you for your interest in contributing to **Choose Ghar** and **PG Saathi AI**! Whether you are submitting a bug fix, improving documentation, or proposing an architectural enhancement, we welcome your collaboration.
+Thank you for your interest in contributing to **Choose Bed** and **PG Saathi AI**! Whether you are submitting a bug fix, improving documentation, or proposing an architectural enhancement, we welcome your collaboration.
 
 ---
 

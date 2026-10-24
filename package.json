@@ -1,7 +1,7 @@
 {
-	"name": "choose-ghar",
+	"name": "choosebed",
 	"version": "1.6.2",
-	"description": "Choose Ghar & PG Saathi AI — Indian PG, Hostel, and Co-Living Management SaaS with Indic Voice Intelligence",
+	"description": "Choose Bed & PG Saathi AI — Indian PG, Hostel, and Co-Living Management SaaS with Indic Voice Intelligence",
 	"private": true,
 	"engines": {
 		"node": ">=18.0.0"

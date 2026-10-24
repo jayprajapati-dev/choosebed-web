@@ -1,6 +1,6 @@
 # Local Development Setup Guide
 
-This document provides complete instructions for setting up and running **Choose Ghar** and **PG Saathi AI** locally on your development machine.
+This document provides complete instructions for setting up and running **Choose Bed** and **PG Saathi AI** locally on your development machine.
 
 ---
 
@@ -42,8 +42,8 @@ Open `.env` and configure the core variables:
 
 ```env
 # 1. PostgreSQL Database Connection (Required)
-DATABASE_URL="postgresql://postgres:password@localhost:5432/chooseghar?schema=public"
-DIRECT_URL="postgresql://postgres:password@localhost:5432/chooseghar"
+DATABASE_URL="postgresql://postgres:password@localhost:5432/choosebed?schema=public"
+DIRECT_URL="postgresql://postgres:password@localhost:5432/choosebed"
 
 # 2. NextAuth Authentication (Required)
 NEXTAUTH_URL="http://localhost:3000"
@@ -61,6 +61,7 @@ GROQ_MODEL="qwen/qwen3.8-27b"
 
 > [!NOTE]
 > **PG Saathi AI operates gracefully without third-party API keys!**
+>
 > - If `GNANI_API_KEY` is not provided, you can test all queries by typing in the chat input.
 > - If `GROQ_API_KEY` is not provided, the deterministic Indic parser (Layer A) resolves 95%+ of standard PG management queries with zero tokens.
 
@@ -108,30 +109,33 @@ npm run check-lint
 
 ## 🔧 Useful Development Commands
 
-| Command | Description |
-| :--- | :--- |
-| `npm run dev` | Starts local Next.js development server on port 3000 |
-| `npm run build` | Generates Prisma client and compiles production build |
-| `npm run start` | Starts compiled production server |
-| `npm run check-lint` | Validates codebase against ESLint rules |
-| `npm run fix-lint` | Automatically formats and fixes auto-fixable lint issues |
-| `npm run check-format` | Checks code formatting with Prettier |
-| `npm run fix-format` | Formats all project files with Prettier |
-| `npx prisma studio` | Opens Prisma Web GUI to inspect and edit database records |
-| `npx prisma db push` | Synchronizes `schema.prisma` changes with database |
+| Command                | Description                                               |
+| :--------------------- | :-------------------------------------------------------- |
+| `npm run dev`          | Starts local Next.js development server on port 3000      |
+| `npm run build`        | Generates Prisma client and compiles production build     |
+| `npm run start`        | Starts compiled production server                         |
+| `npm run check-lint`   | Validates codebase against ESLint rules                   |
+| `npm run fix-lint`     | Automatically formats and fixes auto-fixable lint issues  |
+| `npm run check-format` | Checks code formatting with Prettier                      |
+| `npm run fix-format`   | Formats all project files with Prettier                   |
+| `npx prisma studio`    | Opens Prisma Web GUI to inspect and edit database records |
+| `npx prisma db push`   | Synchronizes `schema.prisma` changes with database        |
 
 ---
 
 ## ❓ Troubleshooting Common Issues
 
 ### 1. `EPERM: rename query_engine-windows.dll.node`
+
 - **Cause**: Windows file lock when `npm run dev` and `npm run build` are executed simultaneously while Prisma client is in memory.
 - **Solution**: Stop the active `npm run dev` process before running `npm run build`, or run `npx next build` directly.
 
 ### 2. Microphone permission denied in browser
+
 - **Cause**: Browser security policy blocks microphone on non-HTTPS origins (except `localhost`).
 - **Solution**: Ensure you are accessing the app via `http://localhost:3000` (not a remote IP), or enable microphone permissions in your browser's site settings.
 
 ### 3. Database connection timeout
+
 - **Cause**: Database instance is paused or connection string is incorrect.
 - **Solution**: Verify database credentials in `.env`, test with `npx prisma db pull` or ensure your Supabase/Neon project is active.

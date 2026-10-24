@@ -57,8 +57,7 @@ export default async function AdminPropertiesPage() {
 					Properties
 				</h1>
 				<p className='mt-0.5 text-xs text-slate-500 dark:text-slate-400 sm:text-sm'>
-					Monitor and inspect registered PG/Hostel properties across Choose
-					Ghar.
+					Monitor and inspect registered PG/Hostel properties across Choose Bed.
 				</p>
 			</div>
 
